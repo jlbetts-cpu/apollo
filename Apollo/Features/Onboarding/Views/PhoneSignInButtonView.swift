@@ -30,7 +30,7 @@ struct PhoneSignInButtonView: View {
                     .stroke(Color.apolloMuted, lineWidth: 1)
             )
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .padding(.horizontal, 16)
     }
 }

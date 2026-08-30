@@ -50,7 +50,7 @@ struct SearchResultRow: View {
                     .background(Color.apolloFriendsPillFill)
                     .clipShape(Capsule())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apollo)
             .accessibilityLabel("Add \(result.displayName)")
 
         case .requestedByMe:
@@ -73,7 +73,7 @@ struct SearchResultRow: View {
                     .background(Color.apolloPrimaryText)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apollo)
             .accessibilityLabel("Accept \(result.displayName)'s friend request")
 
         case .friends:

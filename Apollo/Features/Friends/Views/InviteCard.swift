@@ -42,7 +42,7 @@ struct InviteCard: View {
                 Button {
                     if let code = affiliateCode {
                         UIPasteboard.general.string = code
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        ApolloHaptics.success()
                         onCopy()
                     }
                 } label: {
@@ -53,7 +53,7 @@ struct InviteCard: View {
                         .background(Color.apolloFriendsPillFill)
                         .clipShape(Circle())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloIcon)
                 .disabled(affiliateCode == nil)
                 .accessibilityLabel("Copy invite code")
 
@@ -67,7 +67,7 @@ struct InviteCard: View {
                         .background(Color.apolloFriendsPillFill)
                         .clipShape(Capsule())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
                 .simultaneousGesture(TapGesture().onEnded { onShare() })
                 .disabled(affiliateCode == nil)
                 .accessibilityLabel("Share invite code")

@@ -21,16 +21,16 @@ struct NotificationRow: View {
     let notification: AppNotification
     let onTap: () -> Void
 
-    private static let unreadBackground = Color(red: 0x0e / 255, green: 0x0e / 255, blue: 0x0e / 255)
-    private static let copyColor        = Color(red: 0x88 / 255, green: 0x88 / 255, blue: 0x88 / 255)
-    private static let timestampColor   = Color(red: 0x25 / 255, green: 0x25 / 255, blue: 0x25 / 255)
+    private static let unreadBackground = Color.apolloRowUnread
+    private static let copyColor        = Color.apolloErrorToastBody
+    private static let timestampColor   = Color.apolloMuted
 
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 0) {
                 // Unread dot (6pt) — sits 8pt left of avatar.
                 Circle()
-                    .fill(Color.white)
+                    .fill(Color.apolloBadge)
                     .frame(width: 6, height: 6)
                     .opacity(notification.isRead ? 0 : 1)
                     .accessibilityLabel(notification.isRead ? "" : "Unread notification")
@@ -64,7 +64,7 @@ struct NotificationRow: View {
             .background(notification.isRead ? Color.apolloBackground : Self.unreadBackground)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloRow)
         .accessibilityLabel(notification.copy)
         .accessibilityHint("Tap to open")
     }

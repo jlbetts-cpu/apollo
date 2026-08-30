@@ -34,7 +34,7 @@ struct CommentsSheet: View {
             VStack(spacing: 0) {
                 header
                 Divider()
-                    .background(Color(red: 0x0f/255, green: 0x0f/255, blue: 0x0f/255))
+                    .background(Color.apolloSheetBackground)
                     .frame(height: 0.5)
 
                 contentArea
@@ -87,6 +87,8 @@ struct CommentsSheet: View {
         }
         .presentationDetents([.large])
         .presentationDragIndicator(.hidden)
+        .presentationBackground(Color.apolloBackground)
+        .scrollIndicators(.hidden)
         .preferredColorScheme(.dark)
         .task {
             viewModel.onAppear()
@@ -109,7 +111,7 @@ struct CommentsSheet: View {
         VStack(spacing: 0) {
             // Drag pill
             RoundedRectangle(cornerRadius: 2)
-                .fill(Color(red: 0x22/255, green: 0x22/255, blue: 0x22/255))
+                .fill(Color.apolloWinDetailsDragPill)
                 .frame(width: 32, height: 4)
                 .padding(.top, 10)
 

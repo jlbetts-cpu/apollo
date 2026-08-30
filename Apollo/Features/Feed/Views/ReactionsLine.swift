@@ -53,7 +53,7 @@ struct ReactionsLine: View {
                 .padding(.leading, 16)
                 .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloRow)
             .accessibilityLabel(accessibilityLabel)
         }
     }

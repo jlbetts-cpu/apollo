@@ -23,7 +23,7 @@ struct ReactionPicker: View {
                         .padding(.horizontal, 2)
                         .opacity(currentReaction == emoji.rawValue ? 1.0 : 0.95)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(ApolloPressStyle(scale: 0.82, dim: 1.0, haptic: .commit))
                 .accessibilityLabel(accessibilityLabel(for: emoji))
             }
             Button(action: onPlusTap) {
@@ -31,7 +31,7 @@ struct ReactionPicker: View {
                     .font(.sfPro(18, weight: .regular))
                     .foregroundStyle(Color.apolloText)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("More emojis")
         }
         .padding(.horizontal, 12)

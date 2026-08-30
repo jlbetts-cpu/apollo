@@ -20,7 +20,7 @@ struct PostHeader: View {
             Button(action: onAvatarTap) {
                 avatar
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("\(post.user.username)'s profile photo")
 
             VStack(alignment: .leading, spacing: 2) {
@@ -30,7 +30,7 @@ struct PostHeader: View {
                         .tracking(-0.28)
                         .foregroundStyle(Color.apolloUsername)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
 
                 Text(metaLine)
                     .font(.sfPro(12))
@@ -44,6 +44,8 @@ struct PostHeader: View {
                 Text("\(post.winsCount)")
                     .font(.sfPro(20, weight: .semibold))
                     .foregroundStyle(Color.apolloWinsValue)
+                    .contentTransition(.numericText())
+                    .apolloAnimation(ApolloMotion.pop, value: post.winsCount)
                 Text("Wins")
                     .font(.sfPro(10))
                     .foregroundStyle(Color.apolloWinsLabel)

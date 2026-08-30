@@ -35,7 +35,7 @@ struct CaptionView: View {
                         .frame(maxWidth: moreMaxWidth, alignment: .trailing)
                         .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
             }
         }
         .frame(maxWidth: maxWidth, alignment: .trailing)

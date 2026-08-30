@@ -80,9 +80,12 @@ final class WinListViewModel {
     func toggleComplete(_ win: WinListItem) {
         guard let idx = wins.firstIndex(of: win) else { return }
 
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
         let wasCompleted = wins[idx].completedToday
+        // Completing a win is the app's core reward moment, so it gets the
+        // success notification rather than a plain impact. Un-completing is a
+        // correction, not an achievement, and stays light.
+        ApolloHaptics.fire(wasCompleted ? .tap : .success)
+
         wins[idx].completedToday = !wasCompleted
         wins[idx].currentStreak = wasCompleted
             ? max(0, wins[idx].currentStreak - 1)

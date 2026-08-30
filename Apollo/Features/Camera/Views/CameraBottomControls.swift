@@ -99,7 +99,7 @@ private struct ShutterButton: View {
             .frame(width: 80, height: 80)
             .contentShape(Circle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ApolloPressStyle(scale: 1.0, dim: 1.0, haptic: .commit))
         .disabled(isDisabled)
         .accessibilityLabel("Take photo")
     }
@@ -127,7 +127,7 @@ private struct FlipButton: View {
                 .frame(width: 44, height: 44)
                 .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloIcon)
         .accessibilityLabel("Switch camera")
     }
 }

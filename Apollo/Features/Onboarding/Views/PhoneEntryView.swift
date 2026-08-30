@@ -92,7 +92,7 @@ struct PhoneEntryView: View {
                     Spacer()
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
-                .animation(.easeInOut(duration: 0.25), value: showErrorToast)
+                .apolloAnimation(ApolloMotion.move, value: showErrorToast)
             }
         }
         .toolbar(.hidden, for: .navigationBar)

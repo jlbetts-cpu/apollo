@@ -19,7 +19,7 @@ struct OnboardingWelcomeView: View {
                 // Background gradient: #212121 at top → #080808 at bottom
                 LinearGradient(
                     colors: [
-                        Color(red: 0x21/255, green: 0x21/255, blue: 0x21/255),
+                        Color.apolloSheetSurface,
                         Color.apolloBackground
                     ],
                     startPoint: .top,

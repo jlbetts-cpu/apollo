@@ -42,7 +42,7 @@ struct FullScreenPhotoViewer: View {
 
             // Top gradient fade to background (107pt, matches Figma 12839:4352)
             LinearGradient(
-                colors: [Color(white: 24/255), Color.apolloBackground],
+                colors: [Color.apolloViewerGradientTop, Color.apolloBackground],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -96,7 +96,7 @@ struct FullScreenPhotoViewer: View {
                     .background(Color.apolloSkeleton)  // #141414
                     .clipShape(Circle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
 
             Spacer()
 
@@ -116,7 +116,7 @@ struct FullScreenPhotoViewer: View {
                     .background(Color.apolloSkeleton)  // #141414
                     .clipShape(Circle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
         }
     }
 }

@@ -30,7 +30,7 @@ struct GroupedReactionsLine: View {
                 .padding(.leading, 16)
                 .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloRow)
             .accessibilityLabel(accessibilityLabel)
         }
     }
@@ -46,7 +46,12 @@ struct GroupedReactionsLine: View {
                 .foregroundStyle(
                     isOwn ? Color.apolloPrimaryText : Color.apolloReactorMuted
                 )
+                // Optimistic reactions change this the instant you tap, so the
+                // digit rolling is the confirmation that the tap registered.
+                .contentTransition(.numericText())
+                .apolloAnimation(ApolloMotion.pop, value: pair.count)
         }
+        .apolloAnimation(ApolloMotion.state, value: isOwn)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(pair.emoji) \(pair.count)\(isOwn ? ", your reaction" : "")")
     }

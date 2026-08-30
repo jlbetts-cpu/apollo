@@ -101,7 +101,7 @@ struct PhotoTower: View {
             }
             .onChange(of: photos.last?.id) { _, newID in
                 if let newID {
-                    withAnimation(.easeOut(duration: 0.25)) {
+                    withAnimation(ApolloMotion.move) {
                         proxy.scrollTo(newID, anchor: .bottom)
                     }
                 }
@@ -118,7 +118,7 @@ struct PhotoTower: View {
             } label: {
                 photoContent(slot, shape: shape)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloMedia)
             .id(slot.id)
 
         case .skeleton(let i):

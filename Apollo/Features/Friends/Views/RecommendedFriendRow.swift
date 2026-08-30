@@ -44,7 +44,7 @@ struct RecommendedFriendRow: View {
                         .background(Color.apolloFriendsPillFill)
                         .clipShape(Capsule())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
                 .disabled(user.hasRequested)
                 .accessibilityLabel(user.hasRequested ? "Request sent to \(user.displayName)" : "Add \(user.displayName)")
 
@@ -55,7 +55,7 @@ struct RecommendedFriendRow: View {
                             .foregroundStyle(Color.apolloIconStroke)
                             .frame(width: 24, height: 24)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.apolloIcon)
                     .accessibilityLabel("Dismiss \(user.displayName)")
                 }
             }

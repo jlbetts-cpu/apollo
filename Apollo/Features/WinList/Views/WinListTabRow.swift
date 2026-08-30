@@ -25,7 +25,7 @@ struct WinListTabRow: View {
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloTab)
                 .accessibilityLabel(accessibilityLabel(for: tab))
                 .accessibilityAddTraits(tab == selected ? [.isSelected] : [])
             }

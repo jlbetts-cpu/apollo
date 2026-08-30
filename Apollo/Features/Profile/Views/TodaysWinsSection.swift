@@ -134,7 +134,7 @@ struct TodaysWinsEmptyView: View {
         VStack(spacing: 16) {
             Text("Post your first win today.")
                 .font(.goudyItalic(16))
-                .foregroundStyle(Color(red: 0x33 / 255, green: 0x33 / 255, blue: 0x33 / 255))
+                .foregroundStyle(Color.apolloStroke)
                 .multilineTextAlignment(.center)
 
             Button(action: onCameraTap) {
@@ -150,7 +150,7 @@ struct TodaysWinsEmptyView: View {
                 .background(Color.apolloSurface)
                 .clipShape(Capsule())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloPrimary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 32)

@@ -58,7 +58,7 @@ struct WinInputField: View {
 
     private var sizeBadge: some View {
         Button {
-            withAnimation(.easeInOut(duration: 0.12)) {
+            withAnimation(ApolloMotion.state) {
                 size = size.next
             }
         } label: {
@@ -71,7 +71,7 @@ struct WinInputField: View {
                 .clipShape(Capsule())
                 .frame(minWidth: 28, minHeight: 28)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloTab)
         .accessibilityLabel("Size: \(size.accessibilityLabel). Tap to change.")
     }
 
@@ -88,9 +88,9 @@ struct WinInputField: View {
                     .foregroundStyle(Color.apolloBackground)
             }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .opacity(text.trimmingCharacters(in: .whitespaces).isEmpty ? 0.35 : 1)
-        .animation(.easeInOut(duration: 0.15), value: text.isEmpty)
+        .apolloAnimation(ApolloMotion.state, value: text.isEmpty)
         .accessibilityLabel("Add win")
         .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
     }

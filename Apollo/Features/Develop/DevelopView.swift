@@ -31,7 +31,7 @@ struct DevelopView: View {
 
     var body: some View {
         ZStack {
-            Color(white: 0.031).ignoresSafeArea() // #080808
+            Color.apolloBackground.ignoresSafeArea() // #080808
 
             // Shake detector — invisible, active only while undeveloped
             ShakeDetector(active: viewModel.phase == .undeveloped) {
@@ -78,7 +78,7 @@ struct DevelopView: View {
                 HStack {
                     Button("retake", action: onRetake)
                         .font(.sfPro(14))
-                        .foregroundStyle(Color(white: 0.322)) // #525252
+                        .foregroundStyle(Color.apolloTimeStreak) // #525252
                         .padding(.leading, 16)
                         .padding(.top, 16)
                     Spacer()

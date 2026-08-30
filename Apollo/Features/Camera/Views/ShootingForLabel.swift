@@ -47,7 +47,7 @@ struct ShootingForLabel: View {
                     }
                 }
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apollo)
             .frame(minHeight: 44)
             .contentShape(Rectangle())
             .accessibilityLabel(accessibilityLabel)

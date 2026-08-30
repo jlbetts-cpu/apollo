@@ -63,6 +63,8 @@ struct ReactionsBreakdownSheet: View {
         }
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.hidden)
+        .presentationBackground(Color.apolloBackground)
+        .scrollIndicators(.hidden)
         .preferredColorScheme(.dark)
         .task {
             await viewModel.load()
@@ -75,7 +77,7 @@ struct ReactionsBreakdownSheet: View {
         HStack {
             Text("Reactions")
                 .font(.sfPro(14))
-                .foregroundStyle(Color(red: 0x66/255, green: 0x66/255, blue: 0x66/255))
+                .foregroundStyle(Color.apolloSecondaryLabel)
 
             Spacer()
 
@@ -88,7 +90,7 @@ struct ReactionsBreakdownSheet: View {
                     .frame(width: 20, height: 20)
                     .background(Circle().fill(Color.apolloSurface))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("Close reactions")
         }
         .padding(.horizontal, 16)

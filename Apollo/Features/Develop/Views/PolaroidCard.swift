@@ -28,7 +28,7 @@ struct PolaroidCard: View {
         ZStack(alignment: .topLeading) {
             // Card surface
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color(red: 0.03, green: 0.03, blue: 0.03))
+                .fill(Color.apolloBackground)
                 .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
             VStack(alignment: .leading, spacing: 0) {
@@ -45,7 +45,7 @@ struct PolaroidCard: View {
                     Color.black
                         .opacity(0.62 * (1 - progress))
 
-                    Color(red: 0.031, green: 0.031, blue: 0.031)
+                    Color.apolloBackground
                         .opacity(0.8 * (1 - progress))
 
                     // Apollo. wordmark — brightens as photo develops
@@ -65,12 +65,12 @@ struct PolaroidCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(win?.name ?? "Today")
                         .font(.sfPro(16, weight: .medium))
-                        .foregroundStyle(Color(red: 0.71, green: 0.71, blue: 0.71)) // #B5B5B5
+                        .foregroundStyle(Color.apolloCaption) // #B5B5B5
                         .lineLimit(1)
 
                     Text(metadataString)
                         .font(.sfPro(12))
-                        .foregroundStyle(Color(red: 0.42, green: 0.42, blue: 0.42)) // #6B6B6B
+                        .foregroundStyle(Color.apolloWinsLabel) // #6B6B6B
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 14)

@@ -23,10 +23,10 @@ struct CommentsInputBar: View {
     var onCancelReply: () -> Void
 
     private let maxCharacters = 300
-    private let fieldBackground = Color(red: 0x0a/255, green: 0x0a/255, blue: 0x0a/255)
-    private let fieldBorder     = Color(red: 0x14/255, green: 0x14/255, blue: 0x14/255)
-    private let sendActive      = Color(red: 0xe8/255, green: 0xe8/255, blue: 0xe8/255)
-    private let sendMuted       = Color(red: 0x33/255, green: 0x33/255, blue: 0x33/255)
+    private let fieldBackground = Color.apolloFieldSurface
+    private let fieldBorder     = Color.apolloSkeleton
+    private let sendActive      = Color.apolloText
+    private let sendMuted       = Color.apolloStroke
 
     private var trimmed: String { text.trimmingCharacters(in: .whitespacesAndNewlines) }
     private var canSend: Bool { !trimmed.isEmpty }
@@ -54,7 +54,7 @@ struct CommentsInputBar: View {
         HStack(spacing: 6) {
             Text("@\(comment.user.username)")
                 .font(.sfPro(11, weight: .medium))
-                .foregroundStyle(Color(red: 0xe8/255, green: 0xe8/255, blue: 0xe8/255))
+                .foregroundStyle(Color.apolloText)
                 .lineLimit(1)
 
             Spacer(minLength: 0)
@@ -66,7 +66,7 @@ struct CommentsInputBar: View {
                     .frame(width: 18, height: 18)
                     .background(Circle().fill(Color.apolloSurface))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("Cancel reply")
         }
         .padding(.horizontal, 12)
@@ -102,11 +102,11 @@ struct CommentsInputBar: View {
                 text: $text,
                 prompt: Text("Add a comment for \(postOwnerUsername).")
                     .font(.goudyItalic(14))
-                    .foregroundStyle(Color(red: 0x1e/255, green: 0x1e/255, blue: 0x1e/255)),
+                    .foregroundStyle(Color.apolloHairline),
                 axis: .vertical
             )
             .font(.goudyItalic(14))
-            .foregroundStyle(Color(red: 0xe8/255, green: 0xe8/255, blue: 0xe8/255))
+            .foregroundStyle(Color.apolloText)
             .lineLimit(1...3)
             .focused($isFocused)
             .onChange(of: text) { _, newValue in
@@ -125,7 +125,7 @@ struct CommentsInputBar: View {
                     .foregroundStyle(canSend ? sendActive : sendMuted)
                     .frame(width: 18, height: 18)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloPrimary)
             .disabled(!canSend)
             .accessibilityLabel("Send comment")
             .padding(.bottom, 2)

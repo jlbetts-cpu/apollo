@@ -52,7 +52,7 @@ struct WinPickerSheet: View {
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.apollo)
                     .accessibilityLabel("Add a win")
                 }
                 .padding(.bottom, 24)
@@ -62,6 +62,7 @@ struct WinPickerSheet: View {
         .background(Color.apolloSurface.ignoresSafeArea())
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.hidden)
+        .scrollIndicators(.hidden)
         .presentationBackground(Color.apolloSurface)
     }
 
@@ -109,7 +110,7 @@ private struct WinRow: View {
             .frame(minHeight: 44)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloRow)
         .accessibilityLabel("\(win.name), \(win.currentStreak) day streak\(isSelected ? ", selected" : "")")
         .accessibilityHint(isSelected ? "" : "Double tap to select.")
     }

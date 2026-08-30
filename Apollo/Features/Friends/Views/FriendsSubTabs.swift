@@ -34,7 +34,7 @@ struct FriendsSubTabs: View {
                 .font(.goudyRegular(20))
                 .foregroundStyle(selected == tab ? Color.apolloPrimaryText : Color.apolloTabInactive)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloTab)
     }
 }
 

@@ -16,12 +16,12 @@ struct OnboardingPrimaryButton: View {
         Button(action: action) {
             Text(title)
                 .font(.sfPro(20, weight: .medium))
-                .foregroundStyle(Color(red: 0x08 / 255, green: 0x08 / 255, blue: 0x08 / 255))
+                .foregroundStyle(Color.apolloBackground)
                 .frame(maxWidth: .infinity)
                 .frame(height: 44)
                 .background(Color.apolloPrimaryText, in: RoundedRectangle(cornerRadius: 10))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .padding(.horizontal, 16)
     }
 }

@@ -15,13 +15,13 @@ struct GestureHint: View {
         VStack(spacing: 6) {
             Image(systemName: "wave.3.up")
                 .font(.system(size: 18, weight: .light))
-                .foregroundStyle(Color(white: 0.22)) // #393939
+                .foregroundStyle(Color.apolloHint) // #393939
 
             Text("shake to develop")
                 .font(.sfPro(13))
-                .foregroundStyle(Color(white: 0.145)) // #252525
+                .foregroundStyle(Color.apolloMuted) // #252525
         }
         .opacity(visible ? 1 : 0)
-        .animation(.easeOut(duration: 0.25), value: visible)
+        .apolloAnimation(ApolloMotion.reveal, value: visible)
     }
 }

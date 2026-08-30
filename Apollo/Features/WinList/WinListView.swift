@@ -66,7 +66,7 @@ struct WinListView: View {
                             Task { await viewModel.load() }
                         } : nil,
                         onDismiss: {
-                            withAnimation(.easeInOut(duration: 0.2)) {
+                            withAnimation(ApolloMotion.move) {
                                 viewModel.clearTransientError()
                             }
                         }
@@ -179,7 +179,7 @@ struct WinListView: View {
                 WinRowView(
                     win: win,
                     onToggleComplete: {
-                        withAnimation(.easeInOut(duration: 0.25)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.toggleComplete(win)
                         }
                     },
@@ -187,7 +187,7 @@ struct WinListView: View {
                     onSelect: onSelectWin.map { cb in
                         {
                             guard pendingSelectID == nil else { return }
-                            withAnimation(.easeInOut(duration: 0.18)) {
+                            withAnimation(ApolloMotion.state) {
                                 pendingSelectID = win.id
                             }
                             Task {

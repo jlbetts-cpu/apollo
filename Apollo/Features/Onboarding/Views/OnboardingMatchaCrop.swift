@@ -62,7 +62,7 @@ struct OnboardingMatchaCrop: View {
             ForEach(0..<4, id: \.self) { col in
                 ForEach(0..<4, id: \.self) { row in
                     Rectangle()
-                        .stroke(Color(red: 0xf3/255, green: 0xf3/255, blue: 0xf3/255), lineWidth: 1)
+                        .stroke(Color.apolloPrimaryText, lineWidth: 1)
                         .opacity(0.5)
                         .frame(width: cellW, height: cellH)
                         .offset(x: 57 + CGFloat(col) * cellW,
@@ -113,11 +113,11 @@ private struct CornerAnchor: View {
         ZStack(alignment: .topLeading) {
             // Horizontal bar
             RoundedRectangle(cornerRadius: 1)
-                .fill(Color(red: 0xf3/255, green: 0xf3/255, blue: 0xf3/255))
+                .fill(Color.apolloPrimaryText)
                 .frame(width: 24, height: 2)
             // Vertical bar
             RoundedRectangle(cornerRadius: 1)
-                .fill(Color(red: 0xf3/255, green: 0xf3/255, blue: 0xf3/255))
+                .fill(Color.apolloPrimaryText)
                 .frame(width: 2, height: 24)
         }
         .frame(width: 24, height: 24)
@@ -131,17 +131,17 @@ private struct CapturedForPill: View {
         ZStack {
             // Background circle/pill
             Circle()
-                .fill(Color(red: 0x08/255, green: 0x08/255, blue: 0x08/255).opacity(0.6))
+                .fill(Color.apolloBackground.opacity(0.6))
                 .frame(width: 130, height: 130)
 
             VStack(spacing: 2) {
                 Text("Captured for")
                     .font(.sfPro(11, weight: .regular))
-                    .foregroundStyle(Color(red: 0xe6/255, green: 0xe6/255, blue: 0xe6/255).opacity(0.8))
+                    .foregroundStyle(Color.apolloUsername.opacity(0.8))
 
                 Text("Matcha Run")
                     .font(.sfPro(12, weight: .medium))
-                    .foregroundStyle(Color(red: 0xf3/255, green: 0xf3/255, blue: 0xf3/255))
+                    .foregroundStyle(Color.apolloPrimaryText)
 
                 // Matcha thumbnail at 60% opacity, rotated -1.4°
                 Image("OnboardingMatchaThumb")

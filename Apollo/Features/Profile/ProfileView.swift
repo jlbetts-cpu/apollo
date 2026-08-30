@@ -188,7 +188,7 @@ struct ProfileView: View {
                     .zIndex(20)
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: viewModel.transientError)
+        .apolloAnimation(ApolloMotion.move, value: viewModel.transientError)
     }
 
     // MARK: - Inline hero bar
@@ -225,7 +225,7 @@ struct ProfileView: View {
         Button(action: action) {
             circleIconLabel(systemName: systemName)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloIcon)
     }
 
     private func circleIconLabel(systemName: String) -> some View {
@@ -305,7 +305,7 @@ struct ProfileView: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.apolloBackground, lineWidth: 1.5))
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.apolloIcon)
                     .offset(x: 2, y: 2)
                 }
             }
@@ -465,6 +465,7 @@ struct ProfileView: View {
         .background(Color.apolloBackground.ignoresSafeArea())
         .presentationDetents([.height(240)])
         .presentationDragIndicator(.hidden)
+        .presentationBackground(Color.apolloBackground)
     }
 
     private func sheetOption(_ title: String, action: @escaping () -> Void) -> some View {
@@ -477,7 +478,7 @@ struct ProfileView: View {
                 .padding(.vertical, 16)
                 .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloRow)
     }
 }
 
@@ -584,7 +585,7 @@ struct BannerPickFromWinsSheet: View {
                 }
             }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloMedia)
     }
 }
 

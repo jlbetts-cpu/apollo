@@ -13,7 +13,7 @@ struct CaptionStackView: View {
     var post: Post
 
     private let captionFont: Font = .sfPro(14)
-    private let captionColor = Color(white: 0xe8 / 255.0)
+    private let captionColor = Color.apolloText
     private let maxWidth: CGFloat = 215
 
     var body: some View {

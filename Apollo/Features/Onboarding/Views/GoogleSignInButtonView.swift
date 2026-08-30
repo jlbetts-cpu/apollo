@@ -32,13 +32,13 @@ struct GoogleSignInButtonView: View {
 
                 Text("Continue with Google")
                     .font(.sfPro(17, weight: .medium))
-                    .foregroundStyle(Color(red: 0x1f/255, green: 0x1f/255, blue: 0x1f/255))
+                    .foregroundStyle(Color.apolloOnLight)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 44)
             .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .padding(.horizontal, 16)
         .disabled(authService.isLoading)
     }

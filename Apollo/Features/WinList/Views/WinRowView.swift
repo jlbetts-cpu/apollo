@@ -52,18 +52,17 @@ struct WinRowView: View {
     private var completionCircle: some View {
         let filled = win.completedToday || showAsSelected
         return ZStack {
-            if filled {
-                Circle()
-                    .fill(Color.apolloText)
-                    .frame(width: 22, height: 22)
-            } else {
-                Circle()
-                    .stroke(Color.apolloStroke, lineWidth: 1.5)
-                    .frame(width: 22, height: 22)
-            }
+            Circle()
+                .stroke(Color.apolloStroke, lineWidth: 1.5)
+                .opacity(filled ? 0 : 1)
+            Circle()
+                .fill(Color.apolloText)
+                .scaleEffect(filled ? 1 : 0.55)
+                .opacity(filled ? 1 : 0)
         }
+        .frame(width: 22, height: 22)
         .frame(width: 44, height: 44)
-        .animation(.easeInOut(duration: 0.18), value: filled)
+        .apolloAnimation(ApolloMotion.pop, value: filled)
     }
 
     // MARK: - Name + streak
@@ -74,12 +73,15 @@ struct WinRowView: View {
                 .font(.sfPro(15, weight: .medium))
                 .foregroundStyle(win.completedToday ? Color.apolloMuted : Color.apolloText)
                 .lineLimit(1)
-                .animation(.easeInOut(duration: 0.18), value: win.completedToday)
+                .apolloAnimation(ApolloMotion.state, value: win.completedToday)
 
             if win.currentStreak > 0 {
                 Text("\(win.currentStreak)d 🔥")
                     .font(.sfPro(12))
                     .foregroundStyle(Color.apolloMuted)
+                    .contentTransition(.numericText())
+                    .apolloAnimation(ApolloMotion.pop, value: win.currentStreak)
+                    .apolloTransition(.scale(scale: 0.7).combined(with: .opacity))
             }
         }
     }
@@ -102,7 +104,7 @@ struct WinRowView: View {
                 .frame(width: 44, height: 44)
                 .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloIcon)
         .accessibilityLabel("Edit \(win.name)")
     }
 }

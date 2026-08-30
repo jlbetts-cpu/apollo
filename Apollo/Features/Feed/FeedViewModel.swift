@@ -99,10 +99,12 @@ final class FeedViewModel {
         } catch {
             phase = .error
             transientErrorMessage = "Couldn't load your feed."
+            ApolloHaptics.failure()
         }
     }
 
     func refresh() async {
+        ApolloHaptics.tap()
         isRefreshing = true
         defer { isRefreshing = false }
         await load(initial: true)
@@ -261,6 +263,7 @@ final class FeedViewModel {
                 await MainActor.run {
                     self.applyReactionOptimistically(postID: postID, newEmoji: previous)
                     self.transientErrorMessage = "Couldn't react. Try again."
+                    ApolloHaptics.failure()
                 }
             }
         }
@@ -356,6 +359,7 @@ final class FeedViewModel {
             } catch {
                 await MainActor.run {
                     self.transientErrorMessage = "Couldn't delete post. Try again."
+                    ApolloHaptics.failure()
                 }
             }
         }
@@ -368,10 +372,12 @@ final class FeedViewModel {
                 try await self.repository.reportPost(postID: post.id, reason: reason)
                 await MainActor.run {
                     self.transientErrorMessage = "Thanks for letting us know."
+                    ApolloHaptics.success()
                 }
             } catch {
                 await MainActor.run {
                     self.transientErrorMessage = "Couldn't submit report. Try again."
+                    ApolloHaptics.failure()
                 }
             }
         }

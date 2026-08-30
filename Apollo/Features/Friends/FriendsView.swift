@@ -44,7 +44,7 @@ struct FriendsView: View {
                         Spacer()
                     }
                     .transition(.move(edge: .top).combined(with: .opacity))
-                    .animation(.easeOut(duration: 0.3), value: viewModel.toastMessage)
+                    .apolloAnimation(ApolloMotion.move, value: viewModel.toastMessage)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
@@ -115,12 +115,12 @@ struct FriendsView: View {
                 SearchResultRow(
                     result: result,
                     onAdd: {
-                        withAnimation(.easeOut(duration: 0.25)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.addFromSearch(result)
                         }
                     },
                     onAccept: { fid in
-                        withAnimation(.easeOut(duration: 0.3)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.acceptFromSearch(result, friendshipID: fid)
                         }
                     }
@@ -141,12 +141,12 @@ struct FriendsView: View {
                 FriendRequestRow(
                     request: request,
                     onAccept: {
-                        withAnimation(.easeOut(duration: 0.3)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.acceptRequest(request)
                         }
                     },
                     onDecline: {
-                        withAnimation(.easeOut(duration: 0.3)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.declineRequest(request)
                         }
                     }
@@ -163,12 +163,12 @@ struct FriendsView: View {
                 RecommendedFriendRow(
                     user: user,
                     onAdd: {
-                        withAnimation(.easeOut(duration: 0.25)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.addRecommended(user)
                         }
                     },
                     onDismiss: {
-                        withAnimation(.easeOut(duration: 0.3)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.dismissRecommended(user)
                         }
                     }
@@ -185,7 +185,7 @@ struct FriendsView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apollo)
         }
 
         // INVITE CARD (always shown so user can copy/share their code)

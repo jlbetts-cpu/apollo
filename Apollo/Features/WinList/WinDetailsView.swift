@@ -72,6 +72,7 @@ struct WinDetailsView: View {
         }
         .presentationDetents([.large])
         .presentationDragIndicator(.hidden)
+        .scrollIndicators(.hidden)
         .presentationBackground(Color.apolloBackground)
         .confirmationDialog(
             deleteDialogTitle,
@@ -101,7 +102,7 @@ struct WinDetailsView: View {
             ZStack {
                 Text("Details")
                     .font(.sfPro(14))
-                    .foregroundStyle(Color(red: 0x66/255, green: 0x66/255, blue: 0x66/255))
+                    .foregroundStyle(Color.apolloSecondaryLabel)
 
                 HStack {
                     // X button
@@ -119,7 +120,7 @@ struct WinDetailsView: View {
                         .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.apolloIcon)
                     .accessibilityLabel("Dismiss")
 
                     Spacer()
@@ -145,7 +146,7 @@ struct WinDetailsView: View {
                         .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.apolloPrimary)
                     .disabled(viewModel.isSaving)
                     .accessibilityLabel("Save")
                 }
@@ -193,7 +194,7 @@ struct WinDetailsView: View {
     private func sizePill(_ size: WinSize) -> some View {
         let isSelected = viewModel.size == size
         return Button {
-            withAnimation(.easeInOut(duration: 0.12)) {
+            withAnimation(ApolloMotion.state) {
                 viewModel.size = size
             }
         } label: {
@@ -208,7 +209,7 @@ struct WinDetailsView: View {
                 )
                 .clipShape(Capsule())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloTab)
         .accessibilityLabel("Size \(size.accessibilityLabel)")
         .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
@@ -234,13 +235,13 @@ struct WinDetailsView: View {
             }
         }
         .padding(.horizontal, 20)
-        .animation(.easeInOut(duration: 0.2), value: viewModel.repeatSchedule)
+        .apolloAnimation(ApolloMotion.move, value: viewModel.repeatSchedule)
     }
 
     private func repeatRow(_ option: WinRepeat) -> some View {
         let isSelected = viewModel.repeatSchedule == option
         return Button {
-            withAnimation(.easeInOut(duration: 0.15)) {
+            withAnimation(ApolloMotion.state) {
                 viewModel.repeatSchedule = option
             }
         } label: {
@@ -258,7 +259,7 @@ struct WinDetailsView: View {
             .frame(height: 48)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloTab)
         .accessibilityLabel("\(option.displayName). \(isSelected ? "Selected" : "Not selected").")
     }
 
@@ -272,7 +273,7 @@ struct WinDetailsView: View {
                 let dayIndex = index + 1 // 1=Sun … 7=Sat
                 let isOn = viewModel.repeatDays.contains(dayIndex)
                 Button {
-                    withAnimation(.easeInOut(duration: 0.12)) {
+                    withAnimation(ApolloMotion.state) {
                         if isOn {
                             viewModel.repeatDays.removeAll { $0 == dayIndex }
                         } else {
@@ -289,7 +290,7 @@ struct WinDetailsView: View {
                         .clipShape(Circle())
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloTab)
                 .accessibilityLabel("\(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][index]). \(isOn ? "Selected" : "Not selected").")
             }
         }
@@ -323,7 +324,7 @@ struct WinDetailsView: View {
             }
         }
         .padding(.horizontal, 20)
-        .animation(.easeInOut(duration: 0.2), value: viewModel.remindMe)
+        .apolloAnimation(ApolloMotion.move, value: viewModel.remindMe)
     }
 
     // MARK: - Mark as done
@@ -347,7 +348,7 @@ struct WinDetailsView: View {
             .frame(height: 48)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .disabled(viewModel.isMarkingDone)
         .accessibilityLabel("Mark as done")
     }
@@ -368,7 +369,7 @@ struct WinDetailsView: View {
             .frame(height: 48)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apollo)
         .padding(.top, 24)
         .accessibilityLabel("Delete win. Destructive action.")
     }

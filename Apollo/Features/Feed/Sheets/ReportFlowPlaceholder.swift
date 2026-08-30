@@ -25,5 +25,6 @@ struct ReportFlowPlaceholder: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.apolloBackground)
         .presentationDetents([.medium])
+        .presentationBackground(Color.apolloBackground)
     }
 }

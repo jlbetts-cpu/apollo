@@ -71,23 +71,25 @@ struct FeedView: View {
                             Task { await viewModel.load(initial: true) }
                         } : nil,
                         onDismiss: {
-                            withAnimation(.easeInOut(duration: 0.2)) {
+                            withAnimation(ApolloMotion.state) {
                                 viewModel.clearTransientError()
                             }
                         }
                     )
                     .padding(.top, 4)
                     .zIndex(10)
+                    .apolloTransition(.move(edge: .top).combined(with: .opacity))
                 }
 
                 if !viewModel.pendingNewPosts.isEmpty {
                     NewPostsBanner(count: viewModel.pendingNewPostsCount) {
-                        withAnimation(.easeInOut(duration: 0.25)) {
+                        withAnimation(ApolloMotion.move) {
                             viewModel.applyPendingNewPosts()
                         }
                     }
                     .padding(.top, 110)
                     .zIndex(5)
+                    .apolloTransition(.move(edge: .top).combined(with: .opacity))
                 }
 
                 VStack(spacing: 0) {
@@ -103,6 +105,8 @@ struct FeedView: View {
                 .allowsHitTesting(false)
                 .zIndex(2)
             }
+            .apolloAnimation(ApolloMotion.move, value: viewModel.transientErrorMessage)
+            .apolloAnimation(ApolloMotion.move, value: viewModel.pendingNewPostsCount)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("ApolloWordmark")
@@ -126,11 +130,13 @@ struct FeedView: View {
 
                             if notificationsService.unreadCount > 0 {
                                 Circle()
-                                    .fill(Color.white)
+                                    .fill(Color.apolloBadge)
                                     .frame(width: 8, height: 8)
                                     .offset(x: 3, y: -3)
+                                    .apolloTransition(.scale(scale: 0.3).combined(with: .opacity))
                             }
                         }
+                        .apolloAnimation(ApolloMotion.pop, value: notificationsService.unreadCount > 0)
                     }
                     .accessibilityLabel(
                         notificationsService.unreadCount > 0
@@ -174,6 +180,7 @@ struct FeedView: View {
                         }
                     )
                     .presentationDetents([.height(260)])
+                    .presentationBackground(Color.apolloBackground)
                 }
             }
             .fullScreenCover(item: $fullScreenItem) { item in
@@ -207,7 +214,7 @@ struct FeedView: View {
                 presenting: deleteCandidate
             ) { post in
                 Button("Delete", role: .destructive) {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(ApolloMotion.move) {
                         viewModel.delete(post: post)
                     }
                     deleteCandidate = nil
@@ -245,8 +252,21 @@ struct FeedView: View {
 
     // MARK: - Content area (phase-driven)
 
-    @ViewBuilder
     private var contentArea: some View {
+        ZStack {
+            phaseContent
+                .id(viewModel.phase)
+                .apolloTransition(.opacity)
+        }
+        // One declaration covers all four scroll views below it: a bright
+        // indicator track over a full-bleed dark photo feed is the loudest
+        // non-content pixel on the screen.
+        .scrollIndicators(.hidden)
+        .apolloAnimation(ApolloMotion.reveal, value: viewModel.phase)
+    }
+
+    @ViewBuilder
+    private var phaseContent: some View {
         switch viewModel.phase {
         case .loading:
             ScrollView {

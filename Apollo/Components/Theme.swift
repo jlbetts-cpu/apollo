@@ -50,6 +50,43 @@ extension Color {
     static let apolloWinDetailsPillText   = Color(red: 0x33 / 255, green: 0x33 / 255, blue: 0x33 / 255)
     static let apolloWinDetailsRepeatMuted = Color(red: 0x88 / 255, green: 0x88 / 255, blue: 0x88 / 255)
     static let apolloWinDetailsDeleteText = Color(red: 0x3d / 255, green: 0x15 / 255, blue: 0x15 / 255)
+
+    // MARK: - Polish pass tokens
+    //
+    // These replace raw `Color(white:)` / `Color(red:green:blue:)` literals that
+    // had drifted into feature files. Several of them were re-declaring a value
+    // that already had a name here — e.g. #B5B5B5 written as a float triple in
+    // PolaroidCard while `apolloCaption` held the same colour.
+
+    /// Unread badges and the few places that genuinely want pure white on the
+    /// near-black ground. Named so it is never confused with `apolloPrimaryText`.
+    static let apolloBadge = Color.white
+    /// Gesture hints and other copy that should sit just above the background.
+    static let apolloHint = Color(red: 0x39 / 255, green: 0x39 / 255, blue: 0x39 / 255)
+
+    // MARK: - Tokens recovered from feature files
+    //
+    // Every value below was hard-coded in one or more feature files with no
+    // name. They are unchanged; they just live here now, so the app can be
+    // retuned from one file instead of forty.
+
+    /// Secondary labels inside sheets — comment timestamps, section captions.
+    static let apolloSecondaryLabel = Color(red: 0x66 / 255, green: 0x66 / 255, blue: 0x66 / 255)
+    /// The comments sheet ground: a half-step above `apolloBackground` so the
+    /// sheet reads as lifted without a border.
+    static let apolloSheetBackground = Color(red: 0x0f / 255, green: 0x0f / 255, blue: 0x0f / 255)
+    /// Text-entry wells (comment bar, search).
+    static let apolloFieldSurface = Color(red: 0x0a / 255, green: 0x0a / 255, blue: 0x0a / 255)
+    /// The unread wash behind a notification row.
+    static let apolloRowUnread = Color(red: 0x0e / 255, green: 0x0e / 255, blue: 0x0e / 255)
+    /// Separator-weight ink: reply rules, inline dividers, disabled glyphs.
+    static let apolloHairline = Color(red: 0x1e / 255, green: 0x1e / 255, blue: 0x1e / 255)
+    /// Top of the full-screen photo viewer's ground gradient.
+    static let apolloViewerGradientTop = Color(red: 0x18 / 255, green: 0x18 / 255, blue: 0x18 / 255)
+    /// Flash-auto amber — the one warm hue in an otherwise neutral app.
+    static let apolloFlashAuto = Color(red: 0xe8 / 255, green: 0xa8 / 255, blue: 0x00 / 255)
+    /// Ink for text sitting on a light surface (the Google button).
+    static let apolloOnLight = Color(red: 0x1f / 255, green: 0x1f / 255, blue: 0x1f / 255)
 }
 
 extension Font {

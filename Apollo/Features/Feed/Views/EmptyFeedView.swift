@@ -22,7 +22,7 @@ struct EmptyFeedView: View {
                     .frame(width: 120, height: 44)
                     .background(Color.apolloText, in: Capsule())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloPrimary)
             .accessibilityLabel("Win — open camera")
             Spacer(minLength: 0)
         }

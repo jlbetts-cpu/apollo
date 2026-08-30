@@ -49,7 +49,7 @@ struct InviteContactRow: View {
                     .background(Color.apolloFriendsPillFill)
                     .clipShape(Capsule())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apollo)
             .accessibilityLabel("Invite \(contact.displayName) to Apollo")
         }
         .padding(.horizontal, 16)

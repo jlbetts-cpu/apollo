@@ -68,7 +68,7 @@ struct EmojiPickerSheet: View {
                     .frame(width: 20, height: 20)
                     .background(Circle().fill(Color.apolloSurface))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("Close")
         }
         .padding(.horizontal, 16)

@@ -41,7 +41,7 @@ struct ReactionsBreakdownFilterTabs: View {
                     Capsule().stroke(Color.apolloBorder, lineWidth: 0.5)
                 )
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloTab)
         .accessibilityLabel(accessibilityLabel(for: filter))
         .accessibilityAddTraits(isActive ? .isSelected : [])
     }

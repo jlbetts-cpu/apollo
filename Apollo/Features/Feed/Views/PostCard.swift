@@ -73,7 +73,7 @@ struct PostCard: View {
                             }
                         )
                         .offset(y: -52)
-                        .animation(.easeOut(duration: 0.2), value: viewModel.activeReactionPicker)
+                        .apolloAnimation(ApolloMotion.pop, value: viewModel.activeReactionPicker)
                     }
                 }
                 .padding(.trailing, 16)

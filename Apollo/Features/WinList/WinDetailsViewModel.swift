@@ -148,7 +148,7 @@ final class WinDetailsViewModel: Identifiable {
     func markDone() async {
         guard let win = originalWin else { return }
         isMarkingDone = true
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        ApolloHaptics.success()
         do {
             let updated = try await repository.toggleComplete(win.id, date: .now)
             isMarkingDone = false

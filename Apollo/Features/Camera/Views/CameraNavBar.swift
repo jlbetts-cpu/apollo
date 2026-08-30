@@ -47,7 +47,7 @@ struct CameraNavBar: View {
         switch flash {
         case .off: return .apolloIconStroke
         case .on: return .apolloText
-        case .auto: return Color(red: 0xe8 / 255, green: 0xa8 / 255, blue: 0x00 / 255)
+        case .auto: return Color.apolloFlashAuto
         }
     }
 }
@@ -69,7 +69,7 @@ struct CameraIconButton: View {
                 .frame(width: 44, height: 44)
                 .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloIcon)
         .accessibilityLabel(accessibilityLabel)
     }
 }

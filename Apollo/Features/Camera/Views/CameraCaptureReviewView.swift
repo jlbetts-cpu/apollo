@@ -118,7 +118,7 @@ struct CameraCaptureReviewView: View {
             // Centred wordmark
             Text("Apollo.")
                 .font(.goudyItalic(24))
-                .foregroundStyle(Color(white: 0xe6 / 255.0))
+                .foregroundStyle(Color.apolloUsername)
                 .frame(maxWidth: .infinity)
 
             HStack {
@@ -131,7 +131,7 @@ struct CameraCaptureReviewView: View {
                         .font(.sfPro(17))
                         .foregroundStyle(retakeColor)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
                 .disabled(viewModel.uploadState == .committing)
                 .padding(.leading, 16)
 
@@ -152,7 +152,7 @@ struct CameraCaptureReviewView: View {
                             .foregroundStyle(usePhotoColor)
                     }
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloPrimary)
                 .disabled(isUsePhotoDisabled)
                 .padding(.trailing, 16)
             }
@@ -187,13 +187,13 @@ struct CameraCaptureReviewView: View {
             if viewModel.privateNote.isEmpty {
                 Text("How did it feel?")
                     .font(.sfPro(16))
-                    .foregroundStyle(Color(white: 0x83 / 255.0))
+                    .foregroundStyle(Color.apolloWinsValue)
                     .padding(.leading, 24)
                     .allowsHitTesting(false)
             }
             TextField("", text: $viewModel.privateNote)
                 .font(.sfPro(16))
-                .foregroundStyle(Color(white: 0xe6 / 255.0))
+                .foregroundStyle(Color.apolloUsername)
                 .tint(Color.apolloText)
                 .focused($noteFieldFocused)
                 .padding(.leading, 24)
@@ -208,10 +208,10 @@ struct CameraCaptureReviewView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 100, style: .continuous)
-                .fill(Color(white: 0x21 / 255.0))
+                .fill(Color.apolloSheetSurface)
                 .overlay(
                     RoundedRectangle(cornerRadius: 100, style: .continuous)
-                        .stroke(Color(white: 0x6b / 255.0), lineWidth: 1)
+                        .stroke(Color.apolloTabInactive, lineWidth: 1)
                 )
         )
     }
@@ -238,13 +238,13 @@ struct CameraCaptureReviewView: View {
     }
 
     private var usePhotoColor: Color {
-        Color(white: 0x52 / 255.0)
+        Color.apolloTimeStreak
     }
 
     private var retakeColor: Color {
         viewModel.uploadState == .committing
-            ? Color(white: 0x52 / 255.0)
-            : Color(white: 0x9c / 255.0)
+            ? Color.apolloTimeStreak
+            : Color.apolloReactor
     }
 }
 

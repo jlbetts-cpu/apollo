@@ -72,12 +72,12 @@ struct CommentRow: View {
         HStack(spacing: 4) {
             Text(comment.user.username)
                 .font(.sfPro(10, weight: .medium))
-                .foregroundStyle(Color(red: 0x66/255, green: 0x66/255, blue: 0x66/255))
+                .foregroundStyle(Color.apolloSecondaryLabel)
                 .lineLimit(1)
 
             Text(relativeTime(from: comment.createdAt))
                 .font(.sfPro(8))
-                .foregroundStyle(Color(red: 0x1e/255, green: 0x1e/255, blue: 0x1e/255))
+                .foregroundStyle(Color.apolloHairline)
         }
     }
 
@@ -86,7 +86,7 @@ struct CommentRow: View {
     private var commentText: some View {
         Text(comment.text)
             .font(.goudyItalic(12))
-            .foregroundStyle(Color(red: 0x55/255, green: 0x55/255, blue: 0x55/255))
+            .foregroundStyle(Color.apolloIconStroke)
             .padding(.leading, indent)
             .fixedSize(horizontal: false, vertical: true)
     }
@@ -97,9 +97,9 @@ struct CommentRow: View {
         Button(action: onReply) {
             Text("Reply")
                 .font(.sfPro(8))
-                .foregroundStyle(Color(red: 0x1e/255, green: 0x1e/255, blue: 0x1e/255))
+                .foregroundStyle(Color.apolloHairline)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apollo)
         .frame(minWidth: 44, minHeight: 44, alignment: .leading)
         .contentShape(Rectangle())
         .padding(.leading, indent)

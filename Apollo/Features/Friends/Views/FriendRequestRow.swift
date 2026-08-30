@@ -44,7 +44,7 @@ struct FriendRequestRow: View {
                         .background(Color.apolloPrimaryText)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
                 .accessibilityLabel("Accept \(request.displayName)'s friend request")
 
                 Button(action: onDecline) {
@@ -53,7 +53,7 @@ struct FriendRequestRow: View {
                         .foregroundStyle(Color.apolloIconStroke)
                         .frame(width: 24, height: 24)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloIcon)
                 .accessibilityLabel("Decline \(request.displayName)'s request")
             }
         }

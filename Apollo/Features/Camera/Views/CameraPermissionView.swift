@@ -43,7 +43,7 @@ struct CameraPermissionView: View {
                         .frame(width: 160, height: 44)
                         .background(Color.apolloText, in: Capsule())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.apolloPrimary)
                 .accessibilityLabel("Open Settings")
                 Spacer()
                 Spacer()

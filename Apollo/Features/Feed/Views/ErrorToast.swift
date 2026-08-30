@@ -23,7 +23,7 @@ struct ErrorToast: View {
                 }
                 .font(.sfPro(13, weight: .medium))
                 .foregroundStyle(Color.apolloText)
-                .buttonStyle(.plain)
+                .buttonStyle(.apollo)
             }
         }
         .padding(.horizontal, 14)

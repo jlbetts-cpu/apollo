@@ -38,8 +38,14 @@ struct RootTabView: View {
             get: { selection },
             set: { newValue in
                 if newValue == .camera {
+                    // Opening the capture flow is a commitment, not a browse.
+                    ApolloHaptics.commit()
                     showCamera = true
                 } else {
+                    // The system tab bar gives no feedback of its own, so a
+                    // re-tap of the current tab stays silent and a real move
+                    // gets the selection tick.
+                    if newValue != selection { ApolloHaptics.select() }
                     selection = newValue
                 }
             }
@@ -82,6 +88,9 @@ struct RootTabView: View {
                 }
         }
         .onAppear {
+            // Warm the Taptic Engine once at the shell so the first tap of the
+            // session lands on time rather than ~100ms late.
+            ApolloHaptics.prepare()
             // #region agent log
             DebugFileLog.log("H1", "RootTabView.onAppear", "TabView appeared", [
                 "hasAvatarURL": sessionStore.currentUser?.avatarURL != nil,
@@ -114,6 +123,7 @@ struct RootTabView: View {
             .environmentObject(notificationsService)
             .presentationDetents([.fraction(0.55)])
             .presentationDragIndicator(.hidden)
+            .presentationBackground(Color.apolloBackground)
         }
         .fullScreenCover(isPresented: $showCamera) {
             let userID = sessionStore.currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()

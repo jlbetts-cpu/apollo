@@ -26,7 +26,7 @@ struct FriendsHeroBar: View {
                     .background(Color.apolloFriendsQRButton)
                     .clipShape(Circle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.apolloIcon)
             .accessibilityLabel("Show QR code")
         }
         .padding(.horizontal, 16)

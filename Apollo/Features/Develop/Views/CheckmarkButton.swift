@@ -16,7 +16,7 @@ struct CheckmarkButton: View {
 
     var body: some View {
         Button {
-            withAnimation(.spring(response: 0.28, dampingFraction: 0.6)) {
+            withAnimation(ApolloMotion.pop) {
                 pressed = true
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.28) {
@@ -26,15 +26,15 @@ struct CheckmarkButton: View {
         } label: {
             ZStack {
                 Circle()
-                    .fill(Color(white: 0.902)) // #E6E6E6
+                    .fill(Color.apolloUsername) // #E6E6E6
                     .frame(width: 56, height: 56)
 
                 Image(systemName: "checkmark")
                     .font(.system(size: 22, weight: .medium))
-                    .foregroundStyle(Color(white: 0.031)) // #080808
+                    .foregroundStyle(Color.apolloBackground) // #080808
             }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apolloPrimary)
         .scaleEffect(pressed ? 0.92 : 1.0)
         .accessibilityLabel("Confirm photo")
     }

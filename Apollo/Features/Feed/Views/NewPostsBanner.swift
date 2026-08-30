@@ -21,7 +21,7 @@ struct NewPostsBanner: View {
                     Capsule().stroke(Color.apolloBorder, lineWidth: 0.5)
                 )
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.apollo)
         .transition(.move(edge: .top).combined(with: .opacity))
     }
 }

@@ -42,7 +42,7 @@ struct ReactionsBreakdownRow: View {
         VStack(alignment: .leading, spacing: 1) {
             Text(reaction.username)
                 .font(.sfPro(12, weight: .medium))
-                .foregroundStyle(Color(red: 0x88/255, green: 0x88/255, blue: 0x88/255))
+                .foregroundStyle(Color.apolloErrorToastBody)
                 .lineLimit(1)
             Text("@\(reaction.username)")
                 .font(.sfPro(10))
