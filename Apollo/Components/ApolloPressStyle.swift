@@ -24,10 +24,15 @@ struct ApolloPressStyle: ButtonStyle {
     var haptic: ApolloHaptics.Kind? = .tap
 
     func makeBody(configuration: Configuration) -> some View {
-        Body(configuration: configuration, scale: scale, dim: dim, haptic: haptic)
+        PressBody(configuration: configuration, scale: scale, dim: dim, haptic: haptic)
     }
 
-    private struct Body: View {
+    // Named PressBody, not Body: `ButtonStyle` inherits an associated type
+    // called `Body`, so a nested type with that name gets picked up as the
+    // witness for it — and a private nested type can't satisfy a requirement
+    // of an internal protocol conformance. Renaming lets Swift infer `Body`
+    // from makeBody's return type, which is what we actually want.
+    private struct PressBody: View {
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
         @Environment(\.isEnabled) private var isEnabled
 
