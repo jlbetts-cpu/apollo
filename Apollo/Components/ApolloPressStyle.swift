@@ -42,7 +42,9 @@ struct ApolloPressStyle: ButtonStyle {
                 // press is still acknowledged.
                 .scaleEffect(reduceMotion || !configuration.isPressed ? 1 : scale)
                 .opacity(configuration.isPressed ? dim : 1)
-                .opacity(isEnabled ? 1 : 0.4)
+                // Deliberately no disabled dimming here: the shutter, the two
+                // send buttons and the save button each already dim themselves,
+                // and a second multiplier on top took them to ~0.2 opacity.
                 .animation(ApolloMotion.press, value: configuration.isPressed)
                 .onChange(of: configuration.isPressed) { _, pressed in
                     guard pressed, isEnabled, let haptic else { return }

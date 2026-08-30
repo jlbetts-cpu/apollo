@@ -13,7 +13,9 @@ import Observation
 @MainActor
 final class FeedViewModel {
 
-    enum Phase: Equatable {
+    // Hashable, not just Equatable: FeedView uses the phase as a view identity
+    // so SwiftUI cross-fades between phases instead of diffing them in place.
+    enum Phase: Hashable {
         case loading
         case loaded
         case empty
