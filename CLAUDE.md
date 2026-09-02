@@ -2,40 +2,20 @@
 
 Read this before changing anything.
 
-Apollo is built by **two people on two different Macs, taking turns** — Jayden
-(product designer, drives the look and feel) and Darius (built the original
-app). Neither wants to think about git. Both work through Claude Code. This
-file is how a session on one machine knows what the session on the other
-machine already decided.
+Apollo is Jayden's app. He is a product designer who drives the look and
+feel through Claude Code — a session on his Mac that builds and runs it, and
+a cloud session that does the design work. This file is how both know what
+the other already decided.
 
 ---
 
-## 1. The turn-taking rule — this one first, every time
+## 1. Keep the Mac and the cloud in sync
 
-There is one shared branch and two computers. Almost every problem this setup
-can produce comes from one of two mistakes:
+Two sessions, one repo. Before editing, pull; when done, push. That is the
+whole rule, and `./start.sh` / `./save.sh "what changed"` do it in one
+command each so nobody has to think about git.
 
-- **Starting work without pulling.** You build on a stale copy, and the merge
-  afterwards is painful.
-- **Finishing work without pushing.** The other person literally cannot see it,
-  and will rebuild the same thing.
-
-So, at the start of any session where you will edit files:
-
-```bash
-./start.sh          # pulls their work, opens Xcode
-```
-
-and when the human says they're done, or you finish a coherent chunk:
-
-```bash
-./save.sh "what changed"    # commits and pushes
-```
-
-**Push before the session ends.** Not pushing is the single most expensive
-failure mode here — worse than a bug, because a bug is visible and unpushed
-work is not. If `save.sh` reports a conflict, do not guess: read both sides
-and explain the choice to the human before resolving.
+The branch is `main`. Nothing else matters.
 
 ---
 
