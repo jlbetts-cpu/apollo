@@ -2,112 +2,124 @@
 //  Theme.swift
 //  Apollo
 //
-//  Apollo design system tokens. Colors and font helpers used throughout the app.
+//  Colour. Read docs/DESIGN-SYSTEM.md §1 before adding anything here.
+//
+//  Structure:
+//    1. The ramp — eleven grays from the Figma `Colours` page. The only hue.
+//    2. Surfaces — four near-blacks with jobs, replacing the thirteen that
+//       had accumulated across feature files.
+//    3. Roles — what text and icons actually use.
+//    4. Legacy names — every token the codebase already referenced, kept so
+//       nothing breaks, each re-expressed on the ramp. New code uses roles.
 //
 
 import SwiftUI
 
 extension Color {
-    static let apolloBackground = Color(red: 0x08 / 255, green: 0x08 / 255, blue: 0x08 / 255)
-    static let apolloText = Color(red: 0xe8 / 255, green: 0xe8 / 255, blue: 0xe8 / 255)
-    static let apolloMuted = Color(red: 0x25 / 255, green: 0x25 / 255, blue: 0x25 / 255)
-    static let apolloDanger = Color(red: 0x5a / 255, green: 0x20 / 255, blue: 0x20 / 255)
-    static let apolloSkeleton = Color(red: 0x14 / 255, green: 0x14 / 255, blue: 0x14 / 255)
-    static let apolloBorder = Color(red: 0x1a / 255, green: 0x1a / 255, blue: 0x1a / 255)
-    static let apolloSurface = Color(red: 0x11 / 255, green: 0x11 / 255, blue: 0x11 / 255)
-    static let apolloStroke = Color(red: 0x33 / 255, green: 0x33 / 255, blue: 0x33 / 255)
-    static let apolloIconStroke = Color(red: 0x55 / 255, green: 0x55 / 255, blue: 0x55 / 255)
-    static let apolloReactionCount = Color(red: 0x44 / 255, green: 0x44 / 255, blue: 0x44 / 255)
-    static let apolloErrorToastBackground = Color(red: 0x1a / 255, green: 0x1a / 255, blue: 0x1a / 255)
-    static let apolloErrorToastBody = Color(red: 0x88 / 255, green: 0x88 / 255, blue: 0x88 / 255)
-    static let apolloQuote = Color(red: 0x33 / 255, green: 0x33 / 255, blue: 0x33 / 255)
 
-    // Figma restyle tokens.
-    static let apolloPrimaryText = Color(red: 0xf3 / 255, green: 0xf3 / 255, blue: 0xf3 / 255)
-    static let apolloUsername = Color(red: 0xe6 / 255, green: 0xe6 / 255, blue: 0xe6 / 255)
-    static let apolloCaption = Color(red: 0xb5 / 255, green: 0xb5 / 255, blue: 0xb5 / 255)
-    static let apolloTimeStreak = Color(red: 0x52 / 255, green: 0x52 / 255, blue: 0x52 / 255)
-    static let apolloTabInactive = Color(red: 0x6b / 255, green: 0x6b / 255, blue: 0x6b / 255)
-    static let apolloWinsValue = Color(red: 0x83 / 255, green: 0x83 / 255, blue: 0x83 / 255)
-    static let apolloWinsLabel = Color(red: 0x6b / 255, green: 0x6b / 255, blue: 0x6b / 255)
-    static let apolloReactor = Color(red: 0x9c / 255, green: 0x9c / 255, blue: 0x9c / 255)
-    static let apolloReactorMuted = Color(red: 0x83 / 255, green: 0x83 / 255, blue: 0x83 / 255)
-    static let apolloAvatarBorder = Color(red: 0x08 / 255, green: 0x08 / 255, blue: 0x08 / 255)
+    // MARK: - 1. The ramp (DESIGN-SYSTEM §1.1)
 
-    // Win List tokens (Figma node 12839-5903)
-    static let apolloSheetSurface = Color(red: 0x21 / 255, green: 0x21 / 255, blue: 0x21 / 255)
-    static let apolloWinInputBorder = Color(red: 0x6b / 255, green: 0x6b / 255, blue: 0x6b / 255)
+    static let apolloGray50  = Color(red: 0xf3 / 255, green: 0xf3 / 255, blue: 0xf3 / 255)
+    static let apolloGray100 = Color(red: 0xe6 / 255, green: 0xe6 / 255, blue: 0xe6 / 255)
+    static let apolloGray200 = Color(red: 0xce / 255, green: 0xce / 255, blue: 0xce / 255)
+    static let apolloGray300 = Color(red: 0xb5 / 255, green: 0xb5 / 255, blue: 0xb5 / 255)
+    static let apolloGray400 = Color(red: 0x9c / 255, green: 0x9c / 255, blue: 0x9c / 255)
+    static let apolloGray500 = Color(red: 0x83 / 255, green: 0x83 / 255, blue: 0x83 / 255)
+    static let apolloGray600 = Color(red: 0x6b / 255, green: 0x6b / 255, blue: 0x6b / 255)
+    static let apolloGray700 = Color(red: 0x52 / 255, green: 0x52 / 255, blue: 0x52 / 255)
+    static let apolloGray800 = Color(red: 0x39 / 255, green: 0x39 / 255, blue: 0x39 / 255)
+    static let apolloGray900 = Color(red: 0x21 / 255, green: 0x21 / 255, blue: 0x21 / 255)
+    static let apolloGray950 = Color(red: 0x08 / 255, green: 0x08 / 255, blue: 0x08 / 255)
 
-    // Friends screen tokens (PRD §07)
-    static let apolloFriendsPillFill    = Color(red: 0x21 / 255, green: 0x21 / 255, blue: 0x21 / 255) // same as apolloSheetSurface
-    static let apolloFriendsQRButton    = Color(red: 0x14 / 255, green: 0x14 / 255, blue: 0x14 / 255)
-    static let apolloFriendsAcceptText  = Color(red: 0x21 / 255, green: 0x21 / 255, blue: 0x21 / 255)
+    // MARK: - 2. Surfaces (§1.3)
 
-    // Win Details sheet tokens (PRD §05)
-    static let apolloWinDetailsDragPill   = Color(red: 0x22 / 255, green: 0x22 / 255, blue: 0x22 / 255)
-    static let apolloWinDetailsXButton    = Color(red: 0x1c / 255, green: 0x1c / 255, blue: 0x1c / 255)
-    static let apolloWinDetailsPillBorder = Color(red: 0x1e / 255, green: 0x1e / 255, blue: 0x1e / 255)
-    static let apolloWinDetailsPillText   = Color(red: 0x33 / 255, green: 0x33 / 255, blue: 0x33 / 255)
-    static let apolloWinDetailsRepeatMuted = Color(red: 0x88 / 255, green: 0x88 / 255, blue: 0x88 / 255)
-    static let apolloWinDetailsDeleteText = Color(red: 0x3d / 255, green: 0x15 / 255, blue: 0x15 / 255)
+    /// Every screen's background.
+    static let apolloGround  = apolloGray950
+    /// Text-entry wells and the unread-row wash. Sits *below* the ground.
+    static let apolloSunken  = Color(red: 0x0f / 255, green: 0x0f / 255, blue: 0x0f / 255)
+    /// Skeletons, empty thumbnails, quiet chips.
+    static let apolloSurface = Color(red: 0x14 / 255, green: 0x14 / 255, blue: 0x14 / 255)
+    /// Sheets, pills, the search field — anything that floats above the ground.
+    static let apolloRaised  = apolloGray900
 
-    // MARK: - Polish pass tokens
-    //
-    // These replace raw `Color(white:)` / `Color(red:green:blue:)` literals that
-    // had drifted into feature files. Several of them were re-declaring a value
-    // that already had a name here — e.g. #B5B5B5 written as a float triple in
-    // PolaroidCard while `apolloCaption` held the same colour.
+    /// The one hairline. Gray 200 at 20%: reads ~#303030 on the ground and as
+    /// a bright edge on glass. Draw it at 0.5pt (ApolloMetric.hairline).
+    static let apolloHairline = apolloGray200.opacity(0.20)
 
-    /// Unread badges and the few places that genuinely want pure white on the
-    /// near-black ground. Named so it is never confused with `apolloPrimaryText`.
+    // MARK: - 3. Roles (§1.2) — use these in feature code
+
+    /// Headlines, primary actions, the wins numeral.
+    static let apolloPrimaryText = apolloGray50
+    /// Names, titles, body that must be read.
+    static let apolloText        = apolloGray100
+    /// Orb labels, captions on glass, secondary names.
+    static let apolloTextSoft    = apolloGray200
+    /// Captions, quotes, long secondary copy.
+    static let apolloCaption     = apolloGray300
+    /// Timestamps, "& 12 others", section labels, placeholders.
+    static let apolloSecondary   = apolloGray500
+    /// Handles, sub-labels, disabled glyphs.
+    static let apolloTertiary    = apolloGray600
+    /// Meta that should almost disappear: time · streak.
+    static let apolloMeta        = apolloGray700
+    /// Hints and hairline glyphs.
+    static let apolloFaint       = apolloGray800
+
+    /// Unread dots. Pure white is allowed here because it is a signal, not chrome.
     static let apolloBadge = Color.white
-    /// Gesture hints and other copy that should sit just above the background.
-    static let apolloHint = Color(red: 0x39 / 255, green: 0x39 / 255, blue: 0x39 / 255)
-
-    // MARK: - Tokens recovered from feature files
-    //
-    // Every value below was hard-coded in one or more feature files with no
-    // name. They are unchanged; they just live here now, so the app can be
-    // retuned from one file instead of forty.
-
-    /// Secondary labels inside sheets — comment timestamps, section captions.
-    static let apolloSecondaryLabel = Color(red: 0x66 / 255, green: 0x66 / 255, blue: 0x66 / 255)
-    /// The comments sheet ground: a half-step above `apolloBackground` so the
-    /// sheet reads as lifted without a border.
-    static let apolloSheetBackground = Color(red: 0x0f / 255, green: 0x0f / 255, blue: 0x0f / 255)
-    /// Text-entry wells (comment bar, search).
-    static let apolloFieldSurface = Color(red: 0x0a / 255, green: 0x0a / 255, blue: 0x0a / 255)
-    /// The unread wash behind a notification row.
-    static let apolloRowUnread = Color(red: 0x0e / 255, green: 0x0e / 255, blue: 0x0e / 255)
-    /// Separator-weight ink: reply rules, inline dividers, disabled glyphs.
-    static let apolloHairline = Color(red: 0x1e / 255, green: 0x1e / 255, blue: 0x1e / 255)
-    /// Top of the full-screen photo viewer's ground gradient.
-    static let apolloViewerGradientTop = Color(red: 0x18 / 255, green: 0x18 / 255, blue: 0x18 / 255)
-    /// Flash-auto amber — the one warm hue in an otherwise neutral app.
+    /// The flash-auto glyph. The only warm value in the app — a hardware state.
     static let apolloFlashAuto = Color(red: 0xe8 / 255, green: 0xa8 / 255, blue: 0x00 / 255)
-    /// Ink for text sitting on a light surface (the Google button).
-    static let apolloOnLight = Color(red: 0x1f / 255, green: 0x1f / 255, blue: 0x1f / 255)
+
+    // MARK: - 4. Legacy names — kept so existing screens keep compiling.
+    //
+    // Each is an alias onto the ramp or a surface. New code should not add
+    // to this list; use a role above. As screens are rebuilt these go away.
+
+    static let apolloBackground        = apolloGround
+    static let apolloUsername          = apolloGray100
+    static let apolloReactor           = apolloGray400
+    static let apolloWinsValue         = apolloGray500
+    static let apolloReactorMuted      = apolloGray500
+    static let apolloSecondaryLabel    = apolloGray600
+    static let apolloTabInactive       = apolloGray600
+    static let apolloWinsLabel         = apolloGray600
+    static let apolloWinInputBorder    = apolloGray600
+    static let apolloTimeStreak        = apolloGray700
+    static let apolloHint              = apolloGray800
+    static let apolloSheetSurface      = apolloRaised
+    static let apolloFriendsPillFill   = apolloRaised
+    static let apolloFriendsAcceptText = apolloRaised
+    static let apolloWinDetailsDragPill = apolloRaised
+    static let apolloWinDetailsXButton = apolloRaised
+    static let apolloSkeleton          = apolloSurface
+    static let apolloFriendsQRButton   = apolloSurface
+    static let apolloSheetBackground   = apolloSunken
+    static let apolloRowUnread         = apolloSunken
+    static let apolloFieldSurface      = apolloSunken
+    static let apolloAvatarBorder      = apolloGround
+
+    // Off-ramp values that were in use. Each snaps to its nearest step; the
+    // largest move is 4/255, below what a 2× screen can show.
+    static let apolloMuted             = apolloGray900   // was #252525
+    static let apolloBorder            = apolloGray900   // was #1a1a1a
+    static let apolloErrorToastBackground = apolloGray900 // was #1a1a1a
+    static let apolloWinDetailsPillBorder = apolloGray900 // was #1e1e1e
+    static let apolloHairlineLegacy    = apolloGray900   // was #1e1e1e (CommentRow rules)
+    static let apolloViewerGradientTop = apolloSurface   // was #181818
+    static let apolloStroke            = apolloGray800   // was #333333
+    static let apolloQuote             = apolloGray800   // was #333333
+    static let apolloWinDetailsPillText = apolloGray800  // was #333333
+    static let apolloReactionCount     = apolloGray800   // was #444444
+    static let apolloIconStroke        = apolloGray700   // was #555555
+    static let apolloErrorToastBody    = apolloGray500   // was #888888
+    static let apolloWinDetailsRepeatMuted = apolloGray500 // was #888888
+    static let apolloOnLight           = apolloGray900   // was #1f1f1f
+    static let apolloDanger            = apolloGray700   // was #5a2020 — §1.5: no red in prose
+    static let apolloWinDetailsDeleteText = apolloGray700 // was #3d1515
 }
 
-extension Font {
-    // TODO: bundle GoudyBookletter1911-Italic.ttf and register it in Info.plist (UIAppFonts).
-    // Google Fonts does not ship an italic weight — falls back to system serif italic.
-    static func goudyItalic(_ size: CGFloat) -> Font {
-        Font.custom("GoudyBookletter1911-Italic", size: size, relativeTo: .body)
-    }
-
-    // Bundled: Apollo/Resources/Fonts/GoudyBookletter1911-Regular.ttf (OFL license, Google Fonts).
-    // PostScript name verified as "GoudyBookletter1911" (no "-Regular" suffix).
-    // Registered via INFOPLIST_KEY_UIAppFonts in project.pbxproj.
-    static func goudyRegular(_ size: CGFloat) -> Font {
-        Font.custom("GoudyBookletter1911", size: size, relativeTo: .body)
-    }
-
-    static func sfPro(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .default)
-    }
-}
-
+// Spacing that predates ApolloLayout. Kept for the feed grid, which is the
+// one layout allowed to leave the 20pt margin (§3.3).
 enum ApolloSpacing {
     static let postHeaderHorizontal: CGFloat = 12
     static let captionHorizontal: CGFloat = 16

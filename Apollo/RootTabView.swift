@@ -128,9 +128,9 @@ struct RootTabView: View {
         .fullScreenCover(isPresented: $showCamera) {
             let userID = sessionStore.currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()
             CameraView(
-                repository: SupabaseCameraRepository(currentUserID: userID),
-                postRepository: SupabasePostRepository(currentUserID: userID),
-                winListRepository: SupabaseWinListRepository(currentUserID: userID),
+                repository: ApolloRepositories.camera(currentUserID: userID),
+                postRepository: ApolloRepositories.post(currentUserID: userID),
+                winListRepository: ApolloRepositories.winList(currentUserID: userID),
                 onClose: { showCamera = false }
             )
         }

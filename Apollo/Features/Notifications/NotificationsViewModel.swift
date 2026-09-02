@@ -27,7 +27,7 @@ final class NotificationsViewModel {
     // MARK: - Init
 
     init(currentUserID: UUID) {
-        self.repository = SupabaseNotificationsRepository(currentUserID: currentUserID)
+        self.repository = ApolloRepositories.notifications(currentUserID: currentUserID)
     }
 
     init(repository: any NotificationsRepositoryProtocol) {

@@ -39,6 +39,14 @@ final class SessionStore: ObservableObject {
     /// async views like KFImage break the tab bar layout.
     @Published private(set) var currentUserAvatarImage: UIImage?
 
+    /// Guest mode: the whole app on mock repositories, no account, no
+    /// network. Not persisted — relaunching returns to onboarding. Set only
+    /// through enterGuestMode() / leaveGuestMode().
+    @Published private(set) var isGuest: Bool = false
+
+    /// What ApolloApp switches its root on.
+    var isSignedIn: Bool { session != nil || isGuest }
+
     private var listenerTask: Task<Void, Never>?
     private var refreshCancellable: AnyCancellable?
     private var lastFetchedAvatarURL: URL?
@@ -61,6 +69,23 @@ final class SessionStore: ObservableObject {
         refreshCancellable?.cancel()
     }
 
+    // MARK: - Guest mode
+
+    func enterGuestMode() {
+        ApolloRepositories.isGuest = true
+        isGuest = true
+        currentUser = ApolloRepositories.guestUser
+        currentUserAvatarImage = nil
+        ApolloHaptics.commit()
+    }
+
+    func leaveGuestMode() {
+        ApolloRepositories.isGuest = false
+        isGuest = false
+        currentUser = nil
+        currentUserAvatarImage = nil
+    }
+
     private func bootstrap() async {
         // Cold-launch session restore. If there is no saved session this just
         // returns nil — perfectly fine, we'll fall through to onboarding.
@@ -73,6 +98,7 @@ final class SessionStore: ObservableObject {
         for await (event, session) in supabase.auth.authStateChanges {
             switch event {
             case .signedIn, .tokenRefreshed, .userUpdated, .initialSession:
+                if session != nil, self.isGuest { self.leaveGuestMode() }
                 self.session = session
                 if let userID = session?.user.id {
                     await loadCurrentUser(for: userID)

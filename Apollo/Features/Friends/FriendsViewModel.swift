@@ -31,7 +31,7 @@ final class FriendsViewModel {
     private var searchTask: Task<Void, Never>? = nil
 
     init(currentUserID: UUID) {
-        self.repository = SupabaseFriendsRepository(currentUserID: currentUserID)
+        self.repository = ApolloRepositories.friends(currentUserID: currentUserID)
     }
 
     /// Preview / test initialiser that accepts an injected repository.

@@ -102,7 +102,7 @@ struct CommentsInputBar: View {
                 text: $text,
                 prompt: Text("Add a comment for \(postOwnerUsername).")
                     .font(.goudyItalic(14))
-                    .foregroundStyle(Color.apolloHairline),
+                    .foregroundStyle(Color.apolloHairlineLegacy),
                 axis: .vertical
             )
             .font(.goudyItalic(14))

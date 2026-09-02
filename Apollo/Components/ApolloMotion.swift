@@ -35,6 +35,19 @@ enum ApolloMotion {
     /// Content dissolving in or out — skeleton to loaded, feed phase changes.
     static let reveal = Animation.easeInOut(duration: 0.30)
 
+    /// Apple's default for a repositioned object (WWDC 2018, *Designing Fluid
+    /// Interfaces*): critically damped, no overshoot. For anything that moves
+    /// because of state, not because of a finger.
+    static let settle = Animation.spring(response: 0.40, dampingFraction: 1.00)
+
+    /// After a flick or a drag release *only*. The small overshoot is earned
+    /// by the momentum the finger gave it; on a menu that merely appeared it
+    /// would feel wrong.
+    static let `throw` = Animation.spring(response: 0.40, dampingFraction: 0.80)
+
+    /// Sheets and drawers.
+    static let sheet = Animation.spring(response: 0.30, dampingFraction: 0.80)
+
     /// The single curve used when Reduce Motion is on: a cross-fade with no
     /// spring, no travel and no overshoot.
     static let reduced = Animation.easeInOut(duration: 0.20)

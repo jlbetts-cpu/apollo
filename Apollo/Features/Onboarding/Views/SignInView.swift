@@ -20,6 +20,7 @@ struct SignInView: View {
 
     @StateObject private var authService = AuthService()
     @State private var showErrorToast = false
+    @EnvironmentObject private var sessionStore: SessionStore
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -59,6 +60,19 @@ struct SignInView: View {
 
                     // Phone
                     PhoneSignInButtonView(onTap: onUsePhone)
+
+                    // Guest — the whole app on sample data, no account.
+                    Button {
+                        sessionStore.enterGuestMode()
+                    } label: {
+                        Text("Look around as a guest")
+                            .apolloText(.body)
+                            .foregroundStyle(Color.apolloSecondary)
+                            .frame(maxWidth: .infinity, minHeight: ApolloMetric.target)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.apollo)
+                    .padding(.top, ApolloSpace.s)
                 }
                 .padding(.bottom, 48)
             }
@@ -98,5 +112,6 @@ struct SignInView: View {
 
 #Preview {
     SignInView(onSignedIn: {}, onUsePhone: {})
+        .environmentObject(SessionStore())
         .preferredColorScheme(.dark)
 }

@@ -31,8 +31,8 @@ struct FeedView: View {
     ) {
         self.currentUser = currentUser
         let userID = currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()
-        let feedRepo: FeedRepository = repository ?? SupabaseFeedRepository(currentUserID: userID)
-        let commentsRepo: CommentsRepository = commentsRepository ?? SupabaseCommentsRepository(
+        let feedRepo: FeedRepository = repository ?? ApolloRepositories.feed(currentUserID: userID)
+        let commentsRepo: CommentsRepository = commentsRepository ?? ApolloRepositories.comments(
             currentUserID: userID,
             username: currentUser?.username ?? "you",
             avatarURL: currentUser?.avatarURL
@@ -192,9 +192,9 @@ struct FeedView: View {
                 case .camera:
                     let userID = supabase.auth.currentUser?.id ?? UUID()
                     CameraView(
-                        repository: SupabaseCameraRepository(currentUserID: userID),
-                        postRepository: SupabasePostRepository(currentUserID: userID),
-                        winListRepository: SupabaseWinListRepository(currentUserID: userID),
+                        repository: ApolloRepositories.camera(currentUserID: userID),
+                        postRepository: ApolloRepositories.post(currentUserID: userID),
+                        winListRepository: ApolloRepositories.winList(currentUserID: userID),
                         onClose: { fullScreenItem = nil }
                     )
                 }

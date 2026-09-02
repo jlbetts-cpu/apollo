@@ -24,7 +24,7 @@ struct ApolloApp: App {
             Group {
                 if sessionStore.isBootstrapping {
                     Color.apolloBackground.ignoresSafeArea()
-                } else if sessionStore.session != nil {
+                } else if sessionStore.isSignedIn {
                     RootTabView()
                 } else {
                     OnboardingFlow {

@@ -48,7 +48,7 @@ struct ProfileView: View {
     init(userID: UUID? = nil, currentUser: CurrentUser? = nil) {
         let resolvedSignedInID = currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()
         let targetID           = userID ?? resolvedSignedInID
-        let repo = SupabaseProfileRepository(
+        let repo = ApolloRepositories.profile(
             currentUserID: resolvedSignedInID,
             profileUserID: targetID
         )
@@ -86,7 +86,7 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showMemories) {
                 MemoriesView(
                     userID: signedInID,
-                    repository: SupabaseMemoriesRepository(userID: signedInID)
+                    repository: ApolloRepositories.memories(userID: signedInID)
                 )
             }
         }

@@ -72,8 +72,28 @@ rather than implying a change is verified. The polish pass in
 
 ## 4. The design system
 
-Three files hold the vocabulary. Use them; do not reinvent their contents
-locally.
+**`docs/DESIGN-SYSTEM.md` is the source of truth.** Read it before building
+or restyling any screen. It was measured from the Figma `Claude` section and
+then simplified on purpose — where it departs from Figma, §12 says why, and
+those are decisions, not oversights. If a screen needs something the doc
+doesn't have, add it to the doc first.
+
+The short version of its rules:
+
+- **Type is a role, never a size.** `.apolloText(.name)` — eleven roles in
+  `ApolloType.swift`. No `.font(.system(size:))`, no `.tracking()`, no
+  `.bold()` in feature code. The `goudy*` / `sfPro` helpers are bridges for
+  screens not yet rebuilt; do not use them in new code.
+- **Colour is a role on an 11-step gray ramp.** Four surfaces (ground ·
+  sunken · surface · raised), one hairline. There is no second hue.
+- **Spacing is on the 4pt grid** (`ApolloSpace`), the screen margin is 20,
+  radius follows what the thing *is* (`ApolloRadius`: photo 3 · control 10 ·
+  object 20 · viewfinder 40 · capsule).
+- **Glass is for floating chrome over photos only** (`.apolloGlass()`),
+  never on the ground. Nothing casts a shadow except polaroids in a stack.
+- **Shared components in `Components/Shared/`** are composed, not restyled.
+
+The files, in short:
 
 **`Apollo/Components/Theme.swift`** — every colour in the app, 44 tokens. There
 are no raw `Color(red:green:blue:)` literals left in feature code, and adding
@@ -106,6 +126,17 @@ state of all 63 buttons and it is why the app felt dead to the touch.
 Most buttons already fire one via their press style, so only add an explicit
 call for something the button itself isn't (a completed upload, a failed
 request, a gesture with no button behind it).
+
+---
+
+## 4.5 Guest mode
+
+`Look around as a guest` on the sign-in screen puts the whole app on the
+mock repositories — no account, no network. Use it for all UI work; it is
+faster and it never touches real data. `ApolloRepositories` is the one
+place that decides mock vs Supabase; screens call it instead of
+constructing `SupabaseXRepository` directly. Guest mode is not persisted:
+relaunching returns to onboarding.
 
 ---
 

@@ -48,7 +48,7 @@ final class NotificationsService: ObservableObject {
         // #region agent log
         print("[debug-18c33d][A] NotificationsService.start() called for userID=\(currentUserID.uuidString)")
         // #endregion
-        let repo = SupabaseNotificationsRepository(currentUserID: currentUserID)
+        let repo = ApolloRepositories.notifications(currentUserID: currentUserID)
         notificationsRepository = repo
         Task { await refreshUnreadCount() }
         subscribeRealtimeUnread(repo: repo)

@@ -77,7 +77,7 @@ struct CommentRow: View {
 
             Text(relativeTime(from: comment.createdAt))
                 .font(.sfPro(8))
-                .foregroundStyle(Color.apolloHairline)
+                .foregroundStyle(Color.apolloHairlineLegacy)
         }
     }
 
@@ -97,7 +97,7 @@ struct CommentRow: View {
         Button(action: onReply) {
             Text("Reply")
                 .font(.sfPro(8))
-                .foregroundStyle(Color.apolloHairline)
+                .foregroundStyle(Color.apolloHairlineLegacy)
         }
         .buttonStyle(.apollo)
         .frame(minWidth: 44, minHeight: 44, alignment: .leading)
