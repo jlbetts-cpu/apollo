@@ -586,3 +586,35 @@ Asked and answered by Jayden. These are settled.
 3. **Three tabs: Camera · Feed · Find.** The app opens on Camera. Home is
    gone. Profile lives behind your own avatar in Find; notifications behind
    the bell on Feed.
+
+---
+
+## 13. Build status
+
+What the spec describes versus what the code does, so the next session
+starts from the truth. Update this table when you land a screen.
+
+| Piece | Spec | Code | Notes |
+|---|---|---|---|
+| Colour ramp, surfaces, roles | §1 | ✅ `Theme.swift` | Legacy names kept as aliases |
+| Type roles, Cormorant bundled | §2 | ✅ `ApolloType.swift` | `goudy*` / `sfPro` bridge onto it |
+| Spacing / radius / avatar ladders | §3–5 | ✅ `ApolloLayout.swift` | |
+| Glass | §7.2 | ✅ `ApolloMaterial.swift` | Real Liquid Glass behind `#if compiler(>=6.2)` |
+| Motion ladder + Apple springs | §8.1 | ✅ `ApolloMotion.swift` | |
+| Press feedback, haptics | §8.3, §8.5 | ✅ | Every button; 63 sites |
+| Shared components | §10 | ✅ 12 in `Components/Shared/` | |
+| Three tabs, camera first | §11.1 | ✅ `RootTabView.swift` | Profile reachable from Find's header avatar for now |
+| Sunset clock | §11.3 | ✅ `Core/Sunset/SunsetClock.swift` | NOAA, coarse location, 7:42 PM fallback |
+| Feed — locked hero, orbs, countdown | §11.3 | ✅ `FeedLockedHero.swift` | Orbs = you + yesterday's authors; long-press to unlock in guest |
+| Feed — lock gating, unlock haptic | §8.4 (1–3) | ✅ `FeedView.swift` | |
+| Unlock: orbs fly to post headers | §8.4 (4) | ⬜ | Needs `matchedGeometryEffect` between hero and `PostCard` |
+| Unlock: glow swell 640ms | §8.4 (1) | ⬜ | Hero currently settles out; the swell is next |
+| Feed — post card on the new components | §11.4 | ⬜ | `PostCard` still uses the pre-system views |
+| Single-post "Morning Run" layout | §11.4 | ⬜ | |
+| Post — full viewer, Full · Classic · New | §11.5 | ⬜ | `ApolloChip` + `ApolloPolaroid` exist; viewer not rewired |
+| Camera — spec layout (strip, thumbnail stack) | §11.2 | ⬜ | Only the wordmark swap landed |
+| Find — header + search | §11.6 | ✅ | |
+| Find — Requests / Your people / Albums / Invite on components | §11.6 | ⬜ | No friends-list or albums API yet |
+| Empty-state illustrations | §12 (2) | ⬜ | Slots not yet designed; art doesn't exist |
+| Dynamic Type on rebuilt screens | §9 | ◐ | Roles scale; legacy screens still fixed |
+| Guest mode | CLAUDE §4.5 | ✅ | Whole app on mocks |
