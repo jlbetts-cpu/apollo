@@ -37,6 +37,7 @@ struct ApolloApp: App {
             }
             .environmentObject(sessionStore)
             .environmentObject(notificationsService)
+            .environmentObject(SunsetClock.shared)
             .preferredColorScheme(.dark)
             .onOpenURL { url in
                 DeepLinkRouter.shared.handle(url: url)

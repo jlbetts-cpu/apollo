@@ -2,20 +2,18 @@
 //  RootTabView.swift
 //  Apollo
 //
-//  Top-level shell: a native SwiftUI TabView with five tabs. The tab bar uses
-//  the standard system material on iOS 17; iOS 26+ upgrades it to Liquid Glass.
+//  The shell. DESIGN-SYSTEM §11.1: three tabs — Feed · Camera · Find — and
+//  the app opens on the camera, because capturing has to be the easiest
+//  thing to do and therefore the first thing you see.
 //
-//  Tabs: Feed, Friends, Camera, North, Profile.
+//  The camera is a full-screen cover, not a tab's content: it is presented
+//  on launch and again whenever the Camera tab is tapped, and dismissing it
+//  (chevron or swipe-down) lands on whichever tab was underneath. That keeps
+//  the viewfinder full-bleed with no tab bar over the shutter, exactly as
+//  the Figma frame has it.
 //
-//  The Camera tab is intercepted: tapping it does not change the selected
-//  tab; instead it presents `CameraPlaceholderView` via fullScreenCover so
-//  the camera surface always behaves as a modal capture flow regardless of
-//  where the user came from.
-//
-//  The Profile tab uses `Image("ProfileTabAvatarPlaceholder")` (Original
-//  rendering) so the icon is a real raster image rather than a tinted
-//  template. When the real avatar is wired up from Supabase, swap that
-//  Image for a KFImage(currentUser.avatarURL) clipped to a Circle.
+//  Profile lives behind your avatar in Find; notifications behind the bell
+//  on Feed. North is out of scope for this pass.
 //
 
 import Supabase
@@ -23,14 +21,17 @@ import SwiftUI
 
 struct RootTabView: View {
     enum TabSelection: Hashable {
-        case feed, friends, camera, north, profile
+        case feed, camera, find
     }
 
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationsService: NotificationsService
+    @EnvironmentObject private var sunsetClock: SunsetClock
     @ObservedObject private var deepLinkRouter = DeepLinkRouter.shared
+
     @State private var selection: TabSelection = .feed
     @State private var showCamera: Bool = false
+    @State private var hasOpenedCameraOnLaunch: Bool = false
     @State private var showPushPrompt: Bool = false
 
     private var selectionBinding: Binding<TabSelection> {
@@ -38,13 +39,9 @@ struct RootTabView: View {
             get: { selection },
             set: { newValue in
                 if newValue == .camera {
-                    // Opening the capture flow is a commitment, not a browse.
                     ApolloHaptics.commit()
                     showCamera = true
                 } else {
-                    // The system tab bar gives no feedback of its own, so a
-                    // re-tap of the current tab stays silent and a real move
-                    // gets the selection tick.
                     if newValue != selection { ApolloHaptics.select() }
                     selection = newValue
                 }
@@ -56,56 +53,38 @@ struct RootTabView: View {
         TabView(selection: selectionBinding) {
             FeedView(currentUser: sessionStore.currentUser)
                 .tag(TabSelection.feed)
-                .tabItem { Label("Feed", systemImage: "house") }
+                .tabItem { Label("Feed", systemImage: "photo.stack") }
 
-            FriendsView(currentUser: sessionStore.currentUser)
-                .tag(TabSelection.friends)
-                .tabItem { Label("Friends", systemImage: "person.2") }
-
-            // Never displayed - selectionBinding intercepts before content renders.
+            // Never displayed — selectionBinding intercepts and presents the cover.
             Color.clear
                 .tag(TabSelection.camera)
                 .tabItem { Label("Camera", systemImage: "camera") }
 
-            NorthTabPlaceholderView()
-                .tag(TabSelection.north)
-                .tabItem { Label("North", systemImage: "asterisk") }
-
-            ProfileView(currentUser: sessionStore.currentUser)
-                .tag(TabSelection.profile)
-                .tabItem {
-                    Label {
-                        Text("Profile")
-                    } icon: {
-                        if let avatar = sessionStore.currentUserAvatarImage {
-                            Image(uiImage: avatar)
-                                .renderingMode(.original)
-                        } else {
-                            Image("ProfileTabAvatarPlaceholder")
-                                .renderingMode(.original)
-                        }
-                    }
-                }
+            FriendsView(currentUser: sessionStore.currentUser)
+                .tag(TabSelection.find)
+                .tabItem { Label("Find", systemImage: "magnifyingglass") }
         }
         .onAppear {
-            // Warm the Taptic Engine once at the shell so the first tap of the
-            // session lands on time rather than ~100ms late.
             ApolloHaptics.prepare()
-            // #region agent log
-            DebugFileLog.log("H1", "RootTabView.onAppear", "TabView appeared", [
-                "hasAvatarURL": sessionStore.currentUser?.avatarURL != nil,
-                "avatarURL": sessionStore.currentUser?.avatarURL?.absoluteString ?? "<nil>",
-            ])
-            // #endregion
+            sunsetClock.start()
+            // Camera first. A cover presented in the same frame the TabView
+            // appears can be dropped; a beat later is reliable.
+            if !hasOpenedCameraOnLaunch {
+                hasOpenedCameraOnLaunch = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    showCamera = true
+                }
+            }
         }
-        // Deep link routing from push taps.
+        .onDisappear { sunsetClock.stop() }
+        // Deep links from push taps.
         .onChange(of: deepLinkRouter.targetTab) { _, newTab in
             guard let newTab else { return }
             switch newTab {
             case .feed:     selection = .feed
-            case .friends:  selection = .friends
-            case .north:    selection = .north
-            case .profile:  selection = .profile
+            case .friends:  selection = .find
+            case .north:    selection = .feed
+            case .profile:  selection = .find
             }
             deepLinkRouter.targetTab = nil
         }
@@ -123,7 +102,7 @@ struct RootTabView: View {
             .environmentObject(notificationsService)
             .presentationDetents([.fraction(0.55)])
             .presentationDragIndicator(.hidden)
-            .presentationBackground(Color.apolloBackground)
+            .presentationBackground(Color.apolloRaised)
         }
         .fullScreenCover(isPresented: $showCamera) {
             let userID = sessionStore.currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()
@@ -139,5 +118,6 @@ struct RootTabView: View {
 
 #Preview {
     RootTabView()
+        .environmentObject(SunsetClock.shared)
         .preferredColorScheme(.dark)
 }

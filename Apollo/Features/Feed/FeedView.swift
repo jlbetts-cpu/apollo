@@ -13,6 +13,7 @@ import SwiftUI
 
 struct FeedView: View {
     @EnvironmentObject private var notificationsService: NotificationsService
+    @EnvironmentObject private var sunsetClock: SunsetClock
     @ObservedObject private var deepLinkRouter = DeepLinkRouter.shared
     @State private var viewModel: FeedViewModel
     @State private var navigationPath = NavigationPath()
@@ -54,11 +55,6 @@ struct FeedView: View {
                 Color.apolloBackground.ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    FeedTabRow(selected: viewModel.tab) { tab in
-                        viewModel.switchTab(tab)
-                    }
-                    .padding(.bottom, 12)
-
                     contentArea
                 }
 
@@ -225,8 +221,16 @@ struct FeedView: View {
             } message: { _ in
                 Text("This can't be undone.")
             }
-            .onAppear { viewModel.onAppear() }
+            .onAppear {
+                viewModel.onAppear()
+                syncTabToSunset()
+            }
             .onDisappear { viewModel.onDisappear() }
+            .onChange(of: sunsetClock.isUnlocked) { _, unlocked in
+                // §8.4 step 3: the haptic lands on the same frame as the word.
+                if unlocked { ApolloHaptics.success() }
+                syncTabToSunset()
+            }
             .onChange(of: viewModel.customEmojiTarget) { _, targetID in
                 guard let targetID,
                       let post = viewModel.posts.first(where: { $0.id == targetID }) else { return }
@@ -263,6 +267,55 @@ struct FeedView: View {
         // non-content pixel on the screen.
         .scrollIndicators(.hidden)
         .apolloAnimation(ApolloMotion.reveal, value: viewModel.phase)
+        .apolloAnimation(ApolloMotion.settle, value: sunsetClock.isUnlocked)
+    }
+
+    // MARK: - Sunset
+
+    /// Before sunset the feed shows yesterday; after it, today. The view
+    /// model's tab is derived from the clock, never chosen.
+    private func syncTabToSunset() {
+        let wanted: FeedTab = sunsetClock.isUnlocked ? .now : .yesterday
+        if viewModel.tab != wanted {
+            withAnimation(ApolloMotion.settle) { viewModel.switchTab(wanted) }
+        }
+    }
+
+    /// What sits above the posts (§11.3–11.4): the locked hero and its
+    /// "Yesterday" label before sunset; the "Today" label after.
+    @ViewBuilder
+    private var feedLead: some View {
+        if !sunsetClock.isUnlocked {
+            FeedLockedHero(people: orbPeople) { person in
+                guard !person.isYou else { return }
+                navigationPath.append(FeedDestination.profile(
+                    PostUser(id: person.id, username: person.name, avatarURL: person.avatarURL, streak: 0)
+                ))
+            }
+            .apolloTransition(.move(edge: .top).combined(with: .opacity))
+            ApolloSectionLabel(text: "Yesterday")
+                .padding(.top, ApolloSpace.section)
+        } else {
+            ApolloSectionLabel(text: "Today")
+                .padding(.top, ApolloSpace.xl)
+        }
+    }
+
+    /// The orbs are you plus everyone whose win you're about to see — so
+    /// when the feed unlocks, the people who were floating are the people
+    /// on the screen (§8.4 step 4).
+    private var orbPeople: [OrbPerson] {
+        var seen = Set<UUID>()
+        var out: [OrbPerson] = []
+        if let me = currentUser {
+            out.append(OrbPerson(id: me.id, name: me.username, avatarURL: me.avatarURL, isYou: true))
+            seen.insert(me.id)
+        }
+        for post in viewModel.posts where !seen.contains(post.user.id) {
+            seen.insert(post.user.id)
+            out.append(OrbPerson(id: post.user.id, name: post.user.username, avatarURL: post.user.avatarURL, isYou: false))
+        }
+        return out
     }
 
     @ViewBuilder
@@ -270,17 +323,26 @@ struct FeedView: View {
         switch viewModel.phase {
         case .loading:
             ScrollView {
-                FeedSkeleton().padding(.top, 8)
+                VStack(spacing: 0) {
+                    feedLead
+                    FeedSkeleton().padding(.top, 8)
+                }
             }
         case .loaded:
             postsScroll
         case .empty:
-            EmptyFeedView {
-                fullScreenItem = .camera
+            ScrollView {
+                VStack(spacing: 0) {
+                    feedLead
+                    EmptyFeedView {
+                        fullScreenItem = .camera
+                    }
+                }
             }
         case .partial:
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0) {
+                    feedLead
                     ForEach(viewModel.posts) { post in
                         postCard(for: post)
                     }
@@ -290,10 +352,18 @@ struct FeedView: View {
             }
             .refreshable { await viewModel.refresh() }
         case .yesterdayEmpty:
-            YesterdayEmptyView()
+            ScrollView {
+                VStack(spacing: 0) {
+                    feedLead
+                    YesterdayEmptyView()
+                }
+            }
         case .error:
             ScrollView {
-                FeedSkeleton().padding(.top, 8).opacity(0.4)
+                VStack(spacing: 0) {
+                    feedLead
+                    FeedSkeleton().padding(.top, 8).opacity(0.4)
+                }
             }
             .refreshable { await viewModel.refresh() }
         }
@@ -302,6 +372,7 @@ struct FeedView: View {
     private var postsScroll: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
+                feedLead
                 ForEach(viewModel.posts) { post in
                     postCard(for: post)
                 }

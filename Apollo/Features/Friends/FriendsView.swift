@@ -15,8 +15,10 @@ struct FriendsView: View {
     @EnvironmentObject private var notificationsService: NotificationsService
     @State private var viewModel: FriendsViewModel
     @State private var selectedTab: FriendsTab = .friends
+    private let currentUser: CurrentUser?
 
     init(currentUser: CurrentUser?) {
+        self.currentUser = currentUser
         let userID = currentUser?.id ?? supabase.auth.currentUser?.id ?? UUID()
         _viewModel = State(initialValue: FriendsViewModel(currentUserID: userID))
     }
@@ -68,11 +70,11 @@ struct FriendsView: View {
                     SoftPermissionBanner()
                 }
 
-                FriendsHeroBar(onQRTap: {})
+                findHeader
 
-                FriendsSubTabs(selected: $selectedTab)
-
-                FriendsSearchBar(text: $viewModel.searchText)
+                ApolloSearchField(placeholder: "Search wins, people, places", text: $viewModel.searchText)
+                    .padding(.top, ApolloSpace.headerToContent)
+                    .padding(.bottom, ApolloSpace.section)
 
                 if isSearching {
                     searchResultsSection
@@ -85,6 +87,27 @@ struct FriendsView: View {
         }
         .scrollIndicators(.hidden)
         .refreshable { await viewModel.refresh() }
+    }
+
+    // MARK: - Header
+
+    /// "Find." + QR + settings, per §11.6. The avatar on the far right is a
+    /// temporary door to Profile until the "Your people" strip exists —
+    /// the spec puts Profile behind *You* in that strip.
+    private var findHeader: some View {
+        ApolloScreenHeader(.title("Find.")) {
+            ApolloIconButton(glyph: .symbol("qrcode"), label: "Your QR code", action: {})
+            ApolloIconButton(glyph: .symbol("gearshape"), label: "Settings", action: {})
+            NavigationLink {
+                ProfileView(currentUser: currentUser)
+            } label: {
+                ApolloAvatar(url: currentUser?.avatarURL, size: .row)
+                    .frame(width: ApolloMetric.target, height: ApolloMetric.target)
+                    .contentShape(Circle())
+            }
+            .buttonStyle(.apolloIcon)
+            .accessibilityLabel("Your profile")
+        }
     }
 
     // MARK: - Search results section
@@ -209,9 +232,10 @@ struct FriendsView: View {
 
     private var skeletonContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            FriendsHeroBar()
-            FriendsSubTabs(selected: .constant(.friends))
-            FriendsSearchBar(text: .constant(""))
+            findHeader
+            ApolloSearchField(placeholder: "Search wins, people, places", text: .constant(""))
+                .padding(.top, ApolloSpace.headerToContent)
+                .padding(.bottom, ApolloSpace.section)
 
             ForEach(0..<5, id: \.self) { _ in
                 skeletonRow
@@ -248,9 +272,10 @@ struct FriendsView: View {
 
     private func errorContent(message: String) -> some View {
         VStack(spacing: 0) {
-            FriendsHeroBar()
-            FriendsSubTabs(selected: .constant(.friends))
-            FriendsSearchBar(text: .constant(""))
+            findHeader
+            ApolloSearchField(placeholder: "Search wins, people, places", text: .constant(""))
+                .padding(.top, ApolloSpace.headerToContent)
+                .padding(.bottom, ApolloSpace.section)
 
             Spacer()
 

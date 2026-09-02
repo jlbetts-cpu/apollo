@@ -50,6 +50,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Apollo uses your rough location to know when the sun sets — that is when the day's wins unlock.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Apollo uses the camera to document your daily wins.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
