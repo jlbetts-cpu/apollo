@@ -12,7 +12,7 @@ struct EmptyFeedView: View {
         VStack(spacing: 16) {
             Spacer(minLength: 0)
             Text("Be the first to post today.")
-                .font(.goudyItalic(18))
+                .font(.legacyEmphasis(18))
                 .foregroundStyle(Color.apolloText)
                 .multilineTextAlignment(.center)
             Button(action: onWinTapped) {

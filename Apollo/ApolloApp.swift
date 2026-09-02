@@ -38,6 +38,7 @@ struct ApolloApp: App {
             .environmentObject(sessionStore)
             .environmentObject(notificationsService)
             .environmentObject(SunsetClock.shared)
+            .onAppear { ApolloFontCheck.run() }
             .preferredColorScheme(.dark)
             .onOpenURL { url in
                 DeepLinkRouter.shared.handle(url: url)

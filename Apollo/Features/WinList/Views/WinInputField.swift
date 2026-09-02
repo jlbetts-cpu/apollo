@@ -33,7 +33,7 @@ struct WinInputField: View {
     private var pill: some View {
         HStack(spacing: 0) {
             TextField("Win.", text: $text)
-                .font(.goudyItalic(20))
+                .font(.legacyEmphasis(20))
                 .foregroundStyle(Color.apolloPrimaryText)
                 .tint(Color.apolloPrimaryText)
                 .submitLabel(.done)
@@ -63,7 +63,7 @@ struct WinInputField: View {
             }
         } label: {
             Text(size.rawValue)
-                .font(.goudyItalic(17))
+                .font(.legacyEmphasis(17))
                 .foregroundStyle(Color.apolloPrimaryText)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)

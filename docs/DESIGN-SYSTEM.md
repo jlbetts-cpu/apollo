@@ -8,6 +8,10 @@ is assembled from the components in §10. If a screen needs something this
 file doesn't have, add it here first, then build it — never the other way
 round.
 
+**Read `CRAFT.md` first.** This file holds the values; that one holds the
+judgment, and values without judgment is how the last two rebuilds came out
+looking generic.
+
 It was written against the `Claude` section of the Figma file
 (`V5Wzqyca2nwllAtzeHjLnm`, node `13646:7423`) on 2026-09-02, with six
 screens measured to the pixel, and then **simplified**: where the mockups
@@ -115,7 +119,8 @@ border was doing. One token, both jobs.
 sizes and tracking tables already tuned, and it is what the rest of the
 phone is set in.
 
-**Cormorant Garamond** — titles and headers only: anything 20pt and up.
+**Cormorant Garamond** — titles and headers only: anything 20pt and up, and
+about one per screen (`CRAFT.md` §6 — a voice loses power with use).
 Names, rows, captions, buttons — everything below 20pt — is SF Pro. This is
 the voice of the app used sparingly, which is what makes it a voice. The mockups used four serifs (Cormorant Garamond, EB
 Garamond, Libre Baskerville, Goudy Bookletter 1911) for what is one job;

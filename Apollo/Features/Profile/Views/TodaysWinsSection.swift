@@ -133,7 +133,7 @@ struct TodaysWinsEmptyView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text("Post your first win today.")
-                .font(.goudyItalic(16))
+                .font(.legacyEmphasis(16))
                 .foregroundStyle(Color.apolloStroke)
                 .multilineTextAlignment(.center)
 

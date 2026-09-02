@@ -85,7 +85,7 @@ struct CommentRow: View {
 
     private var commentText: some View {
         Text(comment.text)
-            .font(.goudyItalic(12))
+            .font(.legacyEmphasis(12))
             .foregroundStyle(Color.apolloIconStroke)
             .padding(.leading, indent)
             .fixedSize(horizontal: false, vertical: true)

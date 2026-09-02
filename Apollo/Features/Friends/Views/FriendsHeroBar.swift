@@ -13,7 +13,7 @@ struct FriendsHeroBar: View {
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             Text("Connect")
-                .font(.goudyRegular(36))
+                .font(.legacyDisplay(36))
                 .foregroundStyle(Color.apolloPrimaryText)
 
             Spacer()

@@ -43,7 +43,7 @@ struct MemoriesView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Memories")
-                    .font(.goudyRegular(24))
+                    .font(.legacyDisplay(24))
                     .foregroundStyle(Color.apolloPrimaryText)
             }
         }

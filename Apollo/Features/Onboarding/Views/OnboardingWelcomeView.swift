@@ -68,7 +68,7 @@ struct OnboardingWelcomeView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer().frame(height: 444)
                     Text("Welcome to")
-                        .font(.goudyRegular(48))
+                        .font(.legacyDisplay(48))
                         .foregroundStyle(Color.apolloUsername)
                         .frame(width: 222, alignment: .leading)
                         .padding(.leading, 90)

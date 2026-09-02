@@ -62,7 +62,7 @@ struct OnboardingWinsView: View {
                 VStack {
                     Spacer().frame(height: 488)
                     Text("Your Wins.\nEvery Day. ")
-                        .font(.goudyRegular(48))
+                        .font(.legacyDisplay(48))
                         .foregroundStyle(Color.apolloUsername)
                         .multilineTextAlignment(.leading)
                         .frame(width: 222, alignment: .leading)

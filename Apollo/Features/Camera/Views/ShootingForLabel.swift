@@ -24,7 +24,7 @@ struct ShootingForLabel: View {
                 if let activeWin {
                     HStack(spacing: 6) {
                         Text(activeWin.name)
-                            .font(.goudyItalic(22))
+                            .font(.legacyEmphasis(22))
                             .foregroundStyle(Color.apolloText)
                         if activeWin.currentStreak > 0 {
                             Text("\(activeWin.currentStreak)🔥")
@@ -39,7 +39,7 @@ struct ShootingForLabel: View {
                 } else {
                     HStack(spacing: 6) {
                         Text("Add a win")
-                            .font(.goudyItalic(22))
+                            .font(.legacyEmphasis(22))
                             .foregroundStyle(Color.apolloIconStroke)
                         Image(systemName: "chevron.up")
                             .font(.system(size: 10, weight: .semibold))

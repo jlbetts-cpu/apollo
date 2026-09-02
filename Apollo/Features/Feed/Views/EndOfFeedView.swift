@@ -11,11 +11,11 @@ struct EndOfFeedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("You're all caught up.")
-                .font(.goudyItalic(18))
+                .font(.legacyEmphasis(18))
                 .foregroundStyle(Color.apolloText)
             if let quote {
                 Text(quote.text)
-                    .font(.goudyItalic(14))
+                    .font(.legacyEmphasis(14))
                     .foregroundStyle(Color.apolloQuote)
             }
         }

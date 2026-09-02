@@ -31,7 +31,7 @@ struct FriendsSubTabs: View {
             selected = tab
         } label: {
             Text(title)
-                .font(.goudyRegular(20))
+                .font(.legacyDisplay(20))
                 .foregroundStyle(selected == tab ? Color.apolloPrimaryText : Color.apolloTabInactive)
         }
         .buttonStyle(.apolloTab)

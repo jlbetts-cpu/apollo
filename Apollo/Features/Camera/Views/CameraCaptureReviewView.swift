@@ -117,7 +117,7 @@ struct CameraCaptureReviewView: View {
         ZStack {
             // Centred wordmark
             Text("Apollo.")
-                .font(.goudyItalic(24))
+                .font(.legacyEmphasis(24))
                 .foregroundStyle(Color.apolloUsername)
                 .frame(maxWidth: .infinity)
 

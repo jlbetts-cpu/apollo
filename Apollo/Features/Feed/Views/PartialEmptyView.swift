@@ -8,7 +8,7 @@ import SwiftUI
 struct PartialEmptyView: View {
     var body: some View {
         Text("Your friends haven't posted yet.")
-            .font(.goudyItalic(16))
+            .font(.legacyEmphasis(16))
             .foregroundStyle(Color.apolloMuted)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)

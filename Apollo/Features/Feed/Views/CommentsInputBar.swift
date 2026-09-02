@@ -101,11 +101,11 @@ struct CommentsInputBar: View {
                 "",
                 text: $text,
                 prompt: Text("Add a comment for \(postOwnerUsername).")
-                    .font(.goudyItalic(14))
+                    .font(.legacyEmphasis(14))
                     .foregroundStyle(Color.apolloHairlineLegacy),
                 axis: .vertical
             )
-            .font(.goudyItalic(14))
+            .font(.legacyEmphasis(14))
             .foregroundStyle(Color.apolloText)
             .lineLimit(1...3)
             .focused($isFocused)

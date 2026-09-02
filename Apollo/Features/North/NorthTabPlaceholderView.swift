@@ -12,7 +12,7 @@ struct NorthTabPlaceholderView: View {
         ZStack {
             Color.apolloBackground.ignoresSafeArea()
             Text("North")
-                .font(.goudyItalic(20))
+                .font(.legacyEmphasis(20))
                 .foregroundStyle(Color.apolloText)
         }
     }

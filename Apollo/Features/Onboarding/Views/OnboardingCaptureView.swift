@@ -52,7 +52,7 @@ struct OnboardingCaptureView: View {
                 VStack {
                     Spacer().frame(height: 488)
                     Text("Every win.\nDocumented.")
-                        .font(.goudyRegular(48))
+                        .font(.legacyDisplay(48))
                         .foregroundStyle(Color.apolloUsername)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 262, alignment: .trailing)

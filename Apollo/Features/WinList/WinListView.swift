@@ -162,7 +162,7 @@ struct WinListView: View {
         VStack {
             Spacer()
             Text("Your wins live here.")
-                .font(.goudyItalic(18))
+                .font(.legacyEmphasis(18))
                 .foregroundStyle(Color.apolloStroke)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)

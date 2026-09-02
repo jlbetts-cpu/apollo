@@ -10,7 +10,7 @@ struct YesterdayEmptyView: View {
         VStack {
             Spacer(minLength: 0)
             Text("Nothing from yesterday.")
-                .font(.goudyItalic(18))
+                .font(.legacyEmphasis(18))
                 .foregroundStyle(Color.apolloMuted)
                 .multilineTextAlignment(.center)
             Spacer(minLength: 0)

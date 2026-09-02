@@ -45,7 +45,7 @@ struct PhoneEntryView: View {
 
                 // Goudy headline
                 Text("What's your\nnumber?")
-                    .font(.goudyRegular(48))
+                    .font(.legacyDisplay(48))
                     .foregroundStyle(Color.apolloUsername)
                     .padding(.horizontal, 16)
 

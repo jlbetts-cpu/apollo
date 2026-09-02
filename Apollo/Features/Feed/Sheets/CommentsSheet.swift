@@ -117,7 +117,7 @@ struct CommentsSheet: View {
 
             HStack {
                 Text("Comments")
-                    .font(.goudyItalic(18))
+                    .font(.legacyEmphasis(18))
                     .foregroundStyle(Color.apolloText)
                     .padding(.leading, 12)
                     .padding(.top, 8)

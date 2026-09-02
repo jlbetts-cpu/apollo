@@ -16,7 +16,7 @@ struct FeedTabRow: View {
                     onSelect(tab)
                 } label: {
                     Text(tab.title)
-                        .font(.goudyRegular(20))
+                        .font(.legacyDisplay(20))
                         .tracking(-0.4)
                         .foregroundStyle(tab == selected ? Color.apolloPrimaryText : Color.apolloTabInactive)
                         .frame(minHeight: 44)

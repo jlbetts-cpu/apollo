@@ -19,7 +19,7 @@ struct WinListTabRow: View {
                     onSelect(tab)
                 } label: {
                     Text(tab.title)
-                        .font(.goudyItalic(24))
+                        .font(.legacyEmphasis(24))
                         .tracking(-0.48)
                         .foregroundStyle(tab == selected ? Color.apolloPrimaryText : Color.apolloReactor)
                         .frame(minHeight: 44)

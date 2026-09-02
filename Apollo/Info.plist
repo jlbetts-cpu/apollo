@@ -59,7 +59,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>CormorantGaramond-Variable.ttf</string>
-		<string>CormorantGaramond-Italic-Variable.ttf</string>
 		<string>GoudyBookletter1911-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>

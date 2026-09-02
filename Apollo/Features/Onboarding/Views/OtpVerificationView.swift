@@ -37,7 +37,7 @@ struct OtpVerificationView: View {
                 Spacer()
 
                 Text("Enter the\ncode.")
-                    .font(.goudyRegular(48))
+                    .font(.legacyDisplay(48))
                     .foregroundStyle(Color.apolloUsername)
                     .padding(.horizontal, 16)
 

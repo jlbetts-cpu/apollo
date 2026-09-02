@@ -15,7 +15,7 @@ struct ReportFlowPlaceholder: View {
         VStack {
             Spacer()
             Text("Report Flow")
-                .font(.goudyItalic(20))
+                .font(.legacyEmphasis(20))
                 .foregroundStyle(Color.apolloText)
             Spacer()
             Button("Close", action: onClose)

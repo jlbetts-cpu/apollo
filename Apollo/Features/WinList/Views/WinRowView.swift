@@ -90,7 +90,7 @@ struct WinRowView: View {
 
     private var sizeBadge: some View {
         Text(win.size.rawValue)
-            .font(.goudyItalic(11))
+            .font(.legacyEmphasis(11))
             .foregroundStyle(Color.apolloPrimaryText)
     }
 

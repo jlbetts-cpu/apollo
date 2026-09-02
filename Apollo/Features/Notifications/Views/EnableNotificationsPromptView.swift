@@ -36,7 +36,7 @@ struct EnableNotificationsPromptView: View {
 
             // Title.
             Text("Stay in the loop.")
-                .font(.goudyItalic(28))
+                .font(.legacyEmphasis(28))
                 .foregroundStyle(Color.apolloPrimaryText)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)

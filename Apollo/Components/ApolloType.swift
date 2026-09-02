@@ -39,7 +39,7 @@ extension ApolloTextRole {
         let family: Family
         let size: CGFloat
         let weight: Font.Weight     // sans only
-        let serifName: String       // serif only — PostScript name
+        let serifWeight: CGFloat    // serif only — 'wght' axis value
         let tracking: CGFloat
         let lineHeightMultiple: CGFloat
         let uppercase: Bool
@@ -48,26 +48,55 @@ extension ApolloTextRole {
 
     fileprivate var spec: Spec {
         switch self {
-        case .display:      return Spec(family: .serif, size: 48, weight: .regular, serifName: ApolloFontName.serifRegular,        tracking: -0.96, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .largeTitle)
-        case .title:        return Spec(family: .serif, size: 24, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking: -0.48, lineHeightMultiple: 1.10, uppercase: false, relativeTo: .title2)
-        case .heading:      return Spec(family: .serif, size: 20, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking: -0.30, lineHeightMultiple: 1.15, uppercase: false, relativeTo: .title3)
-        case .name:         return Spec(family: .sans,  size: 16, weight: .medium,  serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .body)
-        case .nameSmall:    return Spec(family: .sans,  size: 12, weight: .medium,  serifName: "",                                 tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
-        case .nameSmallYou: return Spec(family: .sans,  size: 12, weight: .medium,  serifName: "",                                 tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
-        case .body:         return Spec(family: .sans,  size: 16, weight: .regular, serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
-        case .bodyMedium:   return Spec(family: .sans,  size: 16, weight: .medium,  serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
-        case .caption:      return Spec(family: .sans,  size: 12, weight: .regular, serifName: "",                                 tracking: -0.24, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .caption)
-        case .label:        return Spec(family: .sans,  size: 10, weight: .regular, serifName: "",                                 tracking:  0.50, lineHeightMultiple: 1.00, uppercase: true,  relativeTo: .caption2)
-        case .numeral:      return Spec(family: .sans,  size: 20, weight: .medium,  serifName: "",                                 tracking:  0.00, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .title3)
-        case .countdown:    return Spec(family: .serif, size: 40, weight: .regular, serifName: ApolloFontName.serifRegular,        tracking:  0.00, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .largeTitle)
+        case .display:      return Spec(family: .serif, size: 48, weight: .regular, serifWeight: ApolloSerif.regular,          tracking: -0.96, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .largeTitle)
+        case .title:        return Spec(family: .serif, size: 24, weight: .regular, serifWeight: ApolloSerif.semibold,        tracking: -0.48, lineHeightMultiple: 1.10, uppercase: false, relativeTo: .title2)
+        case .heading:      return Spec(family: .serif, size: 20, weight: .regular, serifWeight: ApolloSerif.semibold,        tracking: -0.30, lineHeightMultiple: 1.15, uppercase: false, relativeTo: .title3)
+        case .name:         return Spec(family: .sans,  size: 16, weight: .medium,  serifWeight: 0,                                                     tracking: -0.32, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .body)
+        case .nameSmall:    return Spec(family: .sans,  size: 12, weight: .medium,  serifWeight: 0,                                                     tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
+        case .nameSmallYou: return Spec(family: .sans,  size: 12, weight: .medium,  serifWeight: 0,                                                     tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
+        case .body:         return Spec(family: .sans,  size: 16, weight: .regular, serifWeight: 0,                                                     tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
+        case .bodyMedium:   return Spec(family: .sans,  size: 16, weight: .medium,  serifWeight: 0,                                                     tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
+        case .caption:      return Spec(family: .sans,  size: 12, weight: .regular, serifWeight: 0,                                                     tracking: -0.24, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .caption)
+        case .label:        return Spec(family: .sans,  size: 10, weight: .regular, serifWeight: 0,                                                     tracking:  0.50, lineHeightMultiple: 1.00, uppercase: true,  relativeTo: .caption2)
+        case .numeral:      return Spec(family: .sans,  size: 20, weight: .medium,  serifWeight: 0,                                                     tracking:  0.00, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .title3)
+        case .countdown:    return Spec(family: .serif, size: 40, weight: .regular, serifWeight: ApolloSerif.regular,          tracking:  0.00, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .largeTitle)
         }
     }
 }
 
-enum ApolloFontName {
-    static let serifRegular        = "CormorantGaramond-Regular"
-    static let serifSemiBold       = "CormorantGaramond-SemiBold"
-    static let serifSemiBoldItalic = "CormorantGaramond-SemiBoldItalic"
+/// Resolving the serif.
+///
+/// The bundled Cormorant is a **variable** font. iOS registers a variable
+/// font's family plus its *default instance* only — here that is
+/// `CormorantGaramond-Light`. Asking `Font.custom` for
+/// "CormorantGaramond-SemiBold" does not fail loudly; it silently returns the
+/// system font. That is what shipped through 69d70d8: every serif in the app
+/// was rendering as SF Pro and nothing said so.
+///
+/// So we take the one face iOS did register and move its `wght` axis. This is
+/// the only reliable way to reach a named weight of a variable font on iOS.
+enum ApolloSerif {
+    /// The single PostScript name iOS actually exposes for the bundled file.
+    static let registeredName = "CormorantGaramond-Light"
+
+    /// The OpenType 'wght' axis, as the four-byte tag CoreText wants.
+    private static let weightAxis = 0x77676874
+
+    static let regular: CGFloat = 400
+    static let semibold: CGFloat = 600
+
+    /// True when the bundled face registered. Checked at launch in DEBUG so a
+    /// missing font can never again be invisible (see ApolloFontCheck).
+    static var isAvailable: Bool { UIFont(name: registeredName, size: 12) != nil }
+
+    static func uiFont(size: CGFloat, weight: CGFloat) -> UIFont {
+        guard let base = UIFont(name: registeredName, size: size) else {
+            return .systemFont(ofSize: size, weight: weight >= semibold ? .semibold : .regular)
+        }
+        let key = UIFontDescriptor.AttributeName(rawValue: kCTFontVariationAttribute as String)
+        let variations: [Int: CGFloat] = [weightAxis: weight]
+        return UIFont(descriptor: base.fontDescriptor.addingAttributes([key: variations]), size: size)
+    }
 }
 
 extension Font {
@@ -86,7 +115,10 @@ extension Font {
             case .sans:
                 return .system(size: ApolloTypeSupport.scaled(s.size, s.relativeTo), weight: s.weight, design: .default)
             case .serif:
-                return .custom(s.serifName, size: s.size, relativeTo: s.relativeTo)
+                return Font(ApolloSerif.uiFont(
+                    size: ApolloTypeSupport.scaled(s.size, s.relativeTo),
+                    weight: s.serifWeight
+                ))
             }
         }
     }
@@ -125,8 +157,7 @@ enum ApolloTypeSupport {
     /// tick. Falls back to the system serif if the font isn't registered.
     static func tabularLiningSerif(size: CGFloat, relativeTo style: Font.TextStyle) -> UIFont {
         let scaledSize = scaled(size, style)
-        let base = UIFont(name: ApolloFontName.serifRegular, size: scaledSize)
-            ?? UIFont.systemFont(ofSize: scaledSize, weight: .regular)
+        let base = ApolloSerif.uiFont(size: scaledSize, weight: ApolloSerif.regular)
         let features: [[UIFontDescriptor.FeatureKey: Int]] = [
             [.type: kNumberCaseType,    .selector: kUpperCaseNumbersSelector],
             [.type: kNumberSpacingType, .selector: kMonospacedNumbersSelector],
@@ -162,17 +193,23 @@ enum ApolloTypeSupport {
 
 extension Font {
     /// The rule (DESIGN-SYSTEM §2.1): the serif is for titles and headers,
-    /// which means 20pt and up. Below that, everything is SF Pro. The old
-    /// code reached for its italic face at every size from 11 to 28 as a
-    /// general "make it nice" — those calls now resolve by size, and none of
-    /// them are italic.
+    /// which means 20pt and up. Below that, everything is SF Pro.
+    ///
+    /// These two are a BRIDGE, not an API. They exist only so the screens
+    /// that have not been rebuilt yet keep compiling, and every call site is
+    /// a screen still owing a rebuild. Do not call them from new code; use
+    /// `.apolloText(_:)`. When the last caller is gone, delete them.
+    ///
+    /// They were called `goudyItalic` / `goudyRegular` and the first one
+    /// really did render italic — at every size from 11 to 28, as a general
+    /// "make it nice". There is no italic in Apollo (§2.4).
     private static func bridge(_ size: CGFloat, emphasis: Bool) -> Font {
-        if size >= 36 { return .custom(ApolloFontName.serifRegular, fixedSize: size) }
-        if size >= 20 { return .custom(ApolloFontName.serifSemiBold, fixedSize: size) }
+        if size >= 36 { return Font(ApolloSerif.uiFont(size: size, weight: ApolloSerif.regular)) }
+        if size >= 20 { return Font(ApolloSerif.uiFont(size: size, weight: ApolloSerif.semibold)) }
         return .system(size: size, weight: emphasis ? .medium : .regular, design: .default)
     }
-    static func goudyItalic(_ size: CGFloat) -> Font { bridge(size, emphasis: true) }
-    static func goudyRegular(_ size: CGFloat) -> Font { bridge(size, emphasis: false) }
+    static func legacyEmphasis(_ size: CGFloat) -> Font { bridge(size, emphasis: true) }
+    static func legacyDisplay(_ size: CGFloat) -> Font { bridge(size, emphasis: false) }
     static func sfPro(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
         .system(size: size, weight: weight, design: .default)
     }

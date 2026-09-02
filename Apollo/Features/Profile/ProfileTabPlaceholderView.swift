@@ -15,7 +15,7 @@ struct ProfileTabPlaceholderView: View {
         ZStack {
             Color.apolloBackground.ignoresSafeArea()
             Text("Profile")
-                .font(.goudyItalic(20))
+                .font(.legacyEmphasis(20))
                 .foregroundStyle(Color.apolloText)
         }
     }

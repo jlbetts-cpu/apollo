@@ -50,9 +50,25 @@ rather than implying a change is verified. The polish pass in
 
 ---
 
-## 4. The design system
+## 4. How Apollo is designed
 
-**`docs/DESIGN-SYSTEM.md` is the source of truth.** Read it before building
+**Read `docs/CRAFT.md` before you touch a screen.** It is how to decide and
+how to see: the four laws, the looking protocol, what premium is
+mechanically, and a catalogue of the specific defaults that make machine-made
+UI look machine-made. Apollo has been rebuilt twice by agents holding the
+tokens and the Figma frames who still produced generic software; that file is
+the difference.
+
+Two rules from it that override everything else here:
+
+- **Looking beats counting.** No claim about how something looks is valid
+  without a screenshot you opened. A session that cannot run the simulator
+  must say so, in its own line, in every message where it changes something
+  visual.
+- **Subtraction beats addition.** Border, background, label, icon, divider,
+  shadow, gradient — that is the order of suspicion when a screen feels off.
+
+**`docs/DESIGN-SYSTEM.md` is the source of truth for values.** Read it before building
 or restyling any screen. It was measured from the Figma `Claude` section and
 then simplified on purpose — where it departs from Figma, §12 says why, and
 those are decisions, not oversights. If a screen needs something the doc
@@ -62,8 +78,11 @@ The short version of its rules:
 
 - **Type is a role, never a size.** `.apolloText(.name)` — eleven roles in
   `ApolloType.swift`. No `.font(.system(size:))`, no `.tracking()`, no
-  `.bold()` in feature code. The `goudy*` / `sfPro` helpers are bridges for
-  screens not yet rebuilt; do not use them in new code.
+  `.bold()` in feature code. The serif is titles and headers only, 20pt and
+  up, about one per screen; everything else is SF Pro. **There is no italic
+  in Apollo** — the italic face is not even bundled. `legacyEmphasis` /
+  `legacyDisplay` / `sfPro` are bridges holding up screens that still owe a
+  rebuild; every call site is a to-do, and new code uses roles.
 - **Colour is a role on an 11-step gray ramp.** Four surfaces (ground ·
   sunken · surface · raised), one hairline. There is no second hue.
 - **Spacing is on the 4pt grid** (`ApolloSpace`), the screen margin is 20,
@@ -74,6 +93,14 @@ The short version of its rules:
 - **Shared components in `Components/Shared/`** are composed, not restyled.
 
 The files, in short:
+
+**`Apollo/Components/ApolloType.swift`** — the type roles. The bundled
+Cormorant is a *variable* font, and iOS registers only its default instance
+(`CormorantGaramond-Light`), so reaching a weight by PostScript name silently
+falls back to the system font — which is exactly what shipped for three
+commits with nobody noticing. Weights are reached by moving the `wght` axis;
+`ApolloFontCheck` verifies it at launch in DEBUG. If you see
+`❌ SERIF MISSING` in the console, fix that before judging any screen.
 
 **`Apollo/Components/Theme.swift`** — every colour in the app, 44 tokens. There
 are no raw `Color(red:green:blue:)` literals left in feature code, and adding

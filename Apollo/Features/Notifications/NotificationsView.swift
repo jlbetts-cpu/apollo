@@ -48,7 +48,7 @@ struct NotificationsView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Notifications")
-                    .font(.goudyItalic(20))
+                    .font(.legacyEmphasis(20))
                     .foregroundStyle(Color.apolloPrimaryText)
             }
         }
@@ -81,7 +81,7 @@ struct NotificationsView: View {
         VStack {
             Spacer()
             Text("Nothing yet. Post your first win.")
-                .font(.goudyItalic(18))
+                .font(.legacyEmphasis(18))
                 .foregroundStyle(Color.apolloMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
