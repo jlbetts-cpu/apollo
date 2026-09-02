@@ -571,14 +571,18 @@ Logged so the next person knows they were choices, not accidents.
 | Hairline `#CECECE` 0.2px on glass | `apolloHairline` 0.5pt | 0.2px cannot be drawn on a 2× or 3× screen; 0.5pt is one device pixel. |
 | Camera-thumb border `#D9D9D9` | none | A third gray that was on no ramp. |
 
-### Open questions for Jayden
+### Decisions taken 2026-09-02
 
-1. **The unlocked feed's "competition" idea** — Most Wins / Biggest Wins /
-   Athletic Freak sections. Your own Figma note asks for it. It cuts
-   against "no leaderboards" in the case study. Which wins?
-2. **The illustrations** (your sister's Penguin-Books-meets-1950s set).
-   They are the only planned non-photo, non-gray element. Where do they
-   live — empty states only, or the launch screen too? Are they one-colour
-   ink on the ground, or do they carry the orange from the mood board?
-3. **"Home"** appears in the case study's tab list (Home · Camera · Feed ·
-   Find) but not in your brief. Assumed gone; Camera is home.
+Asked and answered by Jayden. These are settled.
+
+1. **No leaderboards.** The unlocked feed is chronological. The reward is
+   seeing your people, not ranking them; the Figma note's Most Wins /
+   Biggest Wins / Athletic Freak sections are not built. If a spotlight is
+   ever wanted it is one quiet polaroid, no numbers, no ordering.
+2. **Illustrations live in empty states only.** Empty feed, no wins yet, no
+   friends yet. Ink on the ground, one colour, so the grayscale rule holds.
+   Until the art exists the slots are designed and left empty — no
+   placeholder glyphs.
+3. **Three tabs: Camera · Feed · Find.** The app opens on Camera. Home is
+   gone. Profile lives behind your own avatar in Find; notifications behind
+   the bell on Feed.
