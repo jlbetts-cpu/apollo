@@ -457,7 +457,7 @@ struct ProfileView: View {
                 }
             }
             .background(Color.apolloSurface)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
             .padding(.horizontal, 16)
 
             Spacer()

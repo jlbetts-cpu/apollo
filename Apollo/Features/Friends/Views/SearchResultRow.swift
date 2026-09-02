@@ -71,7 +71,7 @@ struct SearchResultRow: View {
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .background(Color.apolloPrimaryText)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
             }
             .buttonStyle(.apollo)
             .accessibilityLabel("Accept \(result.displayName)'s friend request")

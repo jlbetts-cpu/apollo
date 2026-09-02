@@ -24,9 +24,9 @@ struct PhoneSignInButtonView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 44)
-            .background(Color.apolloBackground, in: RoundedRectangle(cornerRadius: 10))
+            .background(Color.apolloBackground, in: RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous)
                     .stroke(Color.apolloMuted, lineWidth: 1)
             )
         }

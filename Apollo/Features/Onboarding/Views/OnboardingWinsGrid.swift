@@ -28,7 +28,7 @@ struct OnboardingWinsGrid: View {
                     .scaledToFill()
                     .frame(width: leftW, height: totalH)
                     .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 3))
+                    .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
                 // Right: 6 rows (clipped to totalH)
                 VStack(alignment: .leading, spacing: gap) {
@@ -38,7 +38,7 @@ struct OnboardingWinsGrid: View {
                         .scaledToFill()
                         .frame(width: rightW, height: 141)
                         .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
                     // Row 2: 141×71
                     Image("OnboardingWinsRight2")
@@ -46,7 +46,7 @@ struct OnboardingWinsGrid: View {
                         .scaledToFill()
                         .frame(width: rightW, height: 71)
                         .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
                     // Row 3: two 69×85 side by side
                     HStack(spacing: gap) {
@@ -55,13 +55,13 @@ struct OnboardingWinsGrid: View {
                             .scaledToFill()
                             .frame(width: 69, height: 85)
                             .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 3))
+                            .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
                         Image("OnboardingWinsRight3b")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 69, height: 85)
                             .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 3))
+                            .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
                     }
                 }
                 .frame(width: rightW, height: totalH)

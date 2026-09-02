@@ -59,51 +59,48 @@ struct CameraView: View {
     private var activeBody: some View {
         @Bindable var viewModel = viewModel
         return ZStack(alignment: .top) {
-            Color.apolloBackground.ignoresSafeArea()
-
-            GeometryReader { proxy in
-                let viewfinderHeight = proxy.size.width * 5.0 / 4.0
-                VStack(spacing: 0) {
-                    Color.apolloBackground.frame(maxHeight: .infinity)
-                    viewfinderContent
-                        .frame(width: proxy.size.width, height: viewfinderHeight)
-                        .clipped()
-                    Color.apolloBackground.frame(maxHeight: .infinity)
-                }
-            }
-            .ignoresSafeArea()
+            Color.apolloGround.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                CameraNavBar(
+                // The viewfinder takes everything above the control block and
+                // runs under the status bar; only its bottom corners are
+                // rounded (Figma 13646:7518, §3.3).
+                viewfinderContent
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay(CameraThirdsGrid())
+                    .clipShape(UnevenRoundedRectangle(
+                        bottomLeadingRadius: ApolloRadius.viewfinder,
+                        bottomTrailingRadius: ApolloRadius.viewfinder,
+                        style: .continuous
+                    ))
+                    .ignoresSafeArea(edges: .top)
+
+                CameraControlStrip(
                     flash: viewModel.flash,
-                    onClose: onClose,
-                    onToggleFlash: viewModel.cycleFlash
-                )
-
-                Spacer(minLength: 0)
-
-                ShootingForLabel(
                     activeWin: viewModel.activeWin,
-                    onTapWinName: viewModel.openWinPicker,
-                    onTapAddAWin: viewModel.openWinPicker
+                    isFlipping: viewModel.isFlipping,
+                    onToggleFlash: viewModel.cycleFlash,
+                    onTapWin: viewModel.openWinPicker,
+                    onFlip: { viewModel.flipCamera(reduceMotion: reduceMotion) }
                 )
-                .padding(.bottom, 20)
+                .padding(.top, ApolloSpace.l)
 
                 if viewModel.isAtMaxPhotos {
                     MaxedOutLabel()
-                        .padding(.bottom, 8)
+                        .padding(.top, ApolloSpace.m)
                 }
 
-                CameraBottomControls(
+                CameraShutterRow(
+                    isPressed: viewModel.shutterPressed,
+                    isDisabled: viewModel.isAtMaxPhotos,
+                    photoCount: viewModel.todaySummary.photoCount,
                     thumbnailURL: viewModel.todaySummary.gridURL,
-                    isShutterPressed: viewModel.shutterPressed,
-                    isFlipping: viewModel.isFlipping,
-                    isAtMaxPhotos: viewModel.isAtMaxPhotos,
-                    onTapShutter: viewModel.capture,
-                    onTapFlip: { viewModel.flipCamera(reduceMotion: reduceMotion) }
+                    onShutter: viewModel.capture
                 )
-                .padding(.bottom, 8)
+                .padding(.bottom, ApolloSpace.m)
             }
+
+            CameraTopBar(onClose: onClose)
 
             if let message = viewModel.transientErrorMessage, !viewModel.isCaptureReviewPresented {
                 ErrorToast(
@@ -112,7 +109,7 @@ struct CameraView: View {
                     onAction: nil,
                     onDismiss: viewModel.clearTransientError
                 )
-                .padding(.top, 70)
+                .padding(.top, 88)
                 .zIndex(10)
             }
         }

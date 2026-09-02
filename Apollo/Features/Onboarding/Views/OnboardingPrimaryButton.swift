@@ -19,7 +19,7 @@ struct OnboardingPrimaryButton: View {
                 .foregroundStyle(Color.apolloBackground)
                 .frame(maxWidth: .infinity)
                 .frame(height: 44)
-                .background(Color.apolloPrimaryText, in: RoundedRectangle(cornerRadius: 10))
+                .background(Color.apolloPrimaryText, in: RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
         }
         .buttonStyle(.apolloPrimary)
         .padding(.horizontal, 16)

@@ -64,13 +64,13 @@ private struct ThumbnailView: View {
             }
         }
         .frame(width: 56, height: 56)
-        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
         .accessibilityLabel("Today's photos")
         .accessibilityHidden(url == nil)
     }
 
     private var placeholderRect: some View {
-        RoundedRectangle(cornerRadius: 8, style: .continuous)
+        RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous)
             .fill(Color.apolloSkeleton) // #141414
     }
 }

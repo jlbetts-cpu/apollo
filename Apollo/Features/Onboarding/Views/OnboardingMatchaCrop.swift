@@ -30,19 +30,19 @@ struct OnboardingMatchaCrop: View {
                 .scaledToFill()
                 .frame(width: 402, height: 487)
                 .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 3))
+                .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
             // ── Dimmed crop margins ──────────────────────────────────────────
             // Left panel: full height of photo, 57pt wide
             Color.black.opacity(0.46)
                 .frame(width: 57, height: 487)
-                .clipShape(RoundedRectangle(cornerRadius: 3, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
             // Right panel: from gridRight to right edge (402-372=30), top 404pt
             Color.black.opacity(0.46)
                 .frame(width: 30, height: 404)
                 .offset(x: 372)
-                .clipShape(RoundedRectangle(cornerRadius: 3, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
 
             // Top strip inside crop zone: above the crop (38pt tall, 315pt wide)
             Color.black.opacity(0.46)
@@ -148,7 +148,7 @@ private struct CapturedForPill: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 50, height: 50)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
                     .opacity(0.6)
                     .rotationEffect(.degrees(-1.4))
             }

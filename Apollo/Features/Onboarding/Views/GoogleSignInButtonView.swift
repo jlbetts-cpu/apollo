@@ -36,7 +36,7 @@ struct GoogleSignInButtonView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 44)
-            .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
+            .background(Color.white, in: RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
         }
         .buttonStyle(.apolloPrimary)
         .padding(.horizontal, 16)

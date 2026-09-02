@@ -39,14 +39,21 @@ enum ApolloSpace {
 
 /// Radius follows what the thing *is* (§4).
 enum ApolloRadius {
-    /// A photo in a grid or a tiny sticker.
-    static let photo: CGFloat      = 3
-    /// Anything pressable that isn't a capsule.
-    static let control: CGFloat    = 10
-    /// A physical thing: a polaroid, a sheet, a single-post photo.
+    /// A photo in a grid, a thumbnail, a tiny print. Figma drew these at 3,
+    /// which on a 223pt tile reads as a razor edge; 12 reads as a print.
+    static let photo: CGFloat      = 12
+    /// Prints under ~48pt — the three thumbnails beside the shutter. `photo`
+    /// at 12 would eat a 37pt print; Figma drew these at 3.
+    static let thumbnail: CGFloat  = 6
+    /// Anything pressable that isn't a capsule — the portfolio's control rung.
+    static let control: CGFloat    = 14
+    /// A physical thing: a polaroid, a single-post photo, an album card.
     static let object: CGFloat     = 20
-    /// The camera's bottom corners only.
-    static let viewfinder: CGFloat = 40
+    /// The biggest surfaces: sheets, the photo viewer.
+    static let surface: CGFloat    = 28
+    /// The camera's bottom corners only. It is the environment and leaves the
+    /// ladder; Figma had 40, Jayden asked for a bit more.
+    static let viewfinder: CGFloat = 48
 }
 
 /// Avatar ladder (§5.1).

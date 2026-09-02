@@ -171,9 +171,9 @@ struct CameraCaptureReviewView: View {
                 .aspectRatio(4.0 / 5.0, contentMode: .fill)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 3, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
         } else {
-            RoundedRectangle(cornerRadius: 3, style: .continuous)
+            RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous)
                 .fill(Color.apolloSkeleton)
                 .aspectRatio(4 / 5, contentMode: .fit)
                 .frame(maxWidth: .infinity)

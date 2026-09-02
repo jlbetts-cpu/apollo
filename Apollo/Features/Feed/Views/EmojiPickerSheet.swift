@@ -39,7 +39,7 @@ struct EmojiPickerSheet: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 52)
                     .background(Color.apolloSurface)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
                     .padding(.horizontal, 32)
                     .focused($isFieldFocused)
                     .onChange(of: inputText) { _, newValue in

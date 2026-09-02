@@ -250,10 +250,10 @@ struct FriendsView: View {
                 .frame(width: 44, height: 44)
 
             VStack(alignment: .leading, spacing: 4) {
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous)
                     .fill(Color.apolloSkeleton)
                     .frame(width: 120, height: 12)
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous)
                     .fill(Color.apolloSkeleton)
                     .frame(width: 80, height: 10)
             }

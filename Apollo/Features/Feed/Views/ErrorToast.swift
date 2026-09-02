@@ -30,10 +30,10 @@ struct ErrorToast: View {
         .padding(.vertical, 12)
         .background(Color.apolloErrorToastBackground)
         .overlay(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous)
                 .stroke(Color.apolloMuted, lineWidth: 0.5)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.control, style: .continuous))
         .padding(.horizontal, 12)
         .task {
             try? await Task.sleep(nanoseconds: 4_000_000_000)

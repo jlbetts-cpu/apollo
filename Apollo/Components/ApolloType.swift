@@ -22,9 +22,9 @@ enum ApolloTextRole: CaseIterable {
     case display        // "Find." — one per screen
     case title          // "Add a win", the viewer's name, sheet titles
     case heading        // album titles, Full · Classic · New
-    case name           // every person's name in a row or header
-    case nameSmall      // orb labels
-    case nameSmallYou   // the one italic in the app
+    case name           // every person's name in a row or header — SF Pro Medium
+    case nameSmall      // orb labels — SF Pro Medium
+    case nameSmallYou   // same as nameSmall; kept so call sites compile. There is no italic in the app.
     case body           // captions, placeholders, button text
     case bodyMedium     // viewer title, primary pill labels
     case caption        // "12 Wins", timestamps, "& 12 others"
@@ -51,9 +51,9 @@ extension ApolloTextRole {
         case .display:      return Spec(family: .serif, size: 48, weight: .regular, serifName: ApolloFontName.serifRegular,        tracking: -0.96, lineHeightMultiple: 1.00, uppercase: false, relativeTo: .largeTitle)
         case .title:        return Spec(family: .serif, size: 24, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking: -0.48, lineHeightMultiple: 1.10, uppercase: false, relativeTo: .title2)
         case .heading:      return Spec(family: .serif, size: 20, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking: -0.30, lineHeightMultiple: 1.15, uppercase: false, relativeTo: .title3)
-        case .name:         return Spec(family: .serif, size: 16, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking: -0.32, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .body)
-        case .nameSmall:    return Spec(family: .serif, size: 12, weight: .regular, serifName: ApolloFontName.serifSemiBold,       tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
-        case .nameSmallYou: return Spec(family: .serif, size: 12, weight: .regular, serifName: ApolloFontName.serifSemiBoldItalic, tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
+        case .name:         return Spec(family: .sans,  size: 16, weight: .medium,  serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .body)
+        case .nameSmall:    return Spec(family: .sans,  size: 12, weight: .medium,  serifName: "",                                 tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
+        case .nameSmallYou: return Spec(family: .sans,  size: 12, weight: .medium,  serifName: "",                                 tracking:  0.00, lineHeightMultiple: 1.20, uppercase: false, relativeTo: .caption)
         case .body:         return Spec(family: .sans,  size: 16, weight: .regular, serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
         case .bodyMedium:   return Spec(family: .sans,  size: 16, weight: .medium,  serifName: "",                                 tracking: -0.32, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .body)
         case .caption:      return Spec(family: .sans,  size: 12, weight: .regular, serifName: "",                                 tracking: -0.24, lineHeightMultiple: 1.30, uppercase: false, relativeTo: .caption)
@@ -161,14 +161,18 @@ enum ApolloTypeSupport {
 // New code uses `.apolloText(_:)`. Delete these when the last caller goes.
 
 extension Font {
-    static func goudyItalic(_ size: CGFloat) -> Font {
-        .custom(ApolloFontName.serifSemiBoldItalic, fixedSize: size)
+    /// The rule (DESIGN-SYSTEM §2.1): the serif is for titles and headers,
+    /// which means 20pt and up. Below that, everything is SF Pro. The old
+    /// code reached for its italic face at every size from 11 to 28 as a
+    /// general "make it nice" — those calls now resolve by size, and none of
+    /// them are italic.
+    private static func bridge(_ size: CGFloat, emphasis: Bool) -> Font {
+        if size >= 36 { return .custom(ApolloFontName.serifRegular, fixedSize: size) }
+        if size >= 20 { return .custom(ApolloFontName.serifSemiBold, fixedSize: size) }
+        return .system(size: size, weight: emphasis ? .medium : .regular, design: .default)
     }
-    static func goudyRegular(_ size: CGFloat) -> Font {
-        // Display sizes take Regular; everything smaller takes SemiBold so the
-        // serifs survive on the ground — the same rule as the role table.
-        .custom(size >= 36 ? ApolloFontName.serifRegular : ApolloFontName.serifSemiBold, fixedSize: size)
-    }
+    static func goudyItalic(_ size: CGFloat) -> Font { bridge(size, emphasis: true) }
+    static func goudyRegular(_ size: CGFloat) -> Font { bridge(size, emphasis: false) }
     static func sfPro(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
         .system(size: size, weight: weight, design: .default)
     }

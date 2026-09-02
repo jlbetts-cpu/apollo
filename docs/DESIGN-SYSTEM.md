@@ -115,8 +115,9 @@ border was doing. One token, both jobs.
 sizes and tracking tables already tuned, and it is what the rest of the
 phone is set in.
 
-**Cormorant Garamond** — names, titles and the few display moments. This is
-the voice of the app. The mockups used four serifs (Cormorant Garamond, EB
+**Cormorant Garamond** — titles and headers only: anything 20pt and up.
+Names, rows, captions, buttons — everything below 20pt — is SF Pro. This is
+the voice of the app used sparingly, which is what makes it a voice. The mockups used four serifs (Cormorant Garamond, EB
 Garamond, Libre Baskerville, Goudy Bookletter 1911) for what is one job;
 Cormorant is the one used on the primary screen (the locked feed), the
 most refined at display sizes, and — with lining and tabular numerals
@@ -128,7 +129,7 @@ for. Bundled as two variable fonts in `Resources/Fonts/`, OFL licensed.
 | Family | Weights | Why not more |
 |---|---|---|
 | SF Pro | Regular 400 · Medium 500 | Semibold made numerals shout. Medium at 20pt reads as confident, not loud. |
-| Cormorant Garamond | Regular 400 · SemiBold 600 (+ SemiBold Italic) | Regular for ≥36pt where the strokes have room; SemiBold below that so the serifs survive on a dark ground. Italic marks *You*. |
+| Cormorant Garamond | Regular 400 · SemiBold 600 | Regular for ≥36pt where the strokes have room; SemiBold from 20–35. **No italic anywhere in the app.** |
 
 ### 2.3 The scale
 
@@ -141,8 +142,8 @@ add `.tracking()` at a call site.
 | `display` | Cormorant | 48 | Regular | -0.96 (-2%) | 1.0 | "Find." "Sign in." — one per screen, top-left |
 | `title` | Cormorant | 24 | SemiBold | -0.48 | 1.1 | "Add a win", the viewer's name, sheet titles |
 | `heading` | Cormorant | 20 | SemiBold | -0.30 | 1.15 | Album titles, the Full / Classic / New toggle |
-| `name` | Cormorant | 16 | SemiBold | -0.32 | 1.2 | Every person's name in a row or header |
-| `nameSmall` | Cormorant | 12 | SemiBold | 0 | 1.2 | Orb labels (Figma had 10; 12 is the floor for a serif on black) |
+| `name` | SF Pro | 16 | Medium | -0.32 | 1.2 | Every person's name in a row or header |
+| `nameSmall` | SF Pro | 12 | Medium | 0 | 1.2 | Orb labels |
 | `body` | SF Pro | 16 | Regular | -0.32 | 1.3 | Captions ("didn't want to. did it anyway."), search placeholder, buttons |
 | `bodyMedium` | SF Pro | 16 | Medium | -0.32 | 1.3 | The photo-viewer title, primary pill labels |
 | `caption` | SF Pro | 12 | Regular | -0.24 | 1.3 | "12 Wins", timestamps, sunset time, "& 12 others" |
@@ -160,9 +161,9 @@ in this table is a bug.
   and leading together. (`Font.apollo(.name)` exists for the rare place
   that needs only the font.)
 - **Never `.tracking()` in a feature file.** The role owns it.
-- **Never `.bold()`, `.italic()`, `.fontWeight()` in a feature file.** If
-  you need italic, that is the `nameSmall` role's `You` variant, and it is
-  the only italic in the app.
+- **Never `.bold()`, `.italic()`, `.fontWeight()` in a feature file.** There
+  is no italic in the app. *You* is marked by the `+` badge on its orb, not
+  by a slant.
 - Section labels are uppercase in the *role*, not in the string. Write
   `"Your people"`; the role renders `YOUR PEOPLE`.
 - The wordmark `Apollo.` is an image asset, never typeset.
@@ -209,10 +210,11 @@ Radius follows what the thing *is*, not how big it is.
 
 | Token | Value | What it is |
 |---|---|---|
-| `photo` | 3 | A photo living in a grid or a tiny sticker. Barely rounded, so it reads as a print, not a card. |
-| `control` | 10 | Anything you press that isn't a capsule: glass buttons, the search field, album cards, the toggle chips. |
-| `object` | 20 | A physical thing: a polaroid, a sheet, a single-post photo. |
-| `viewfinder` | 40 | The camera's bottom corners only. It is the environment, and it leaves the ladder. |
+| `photo` | 12 | A photo in a grid, a thumbnail, a tiny print. Figma drew 3; on a 223pt tile that is a razor edge. |
+| `control` | 14 | Anything you press that isn't a capsule: glass buttons, the search field, album cards, chips. The portfolio's control rung. |
+| `object` | 20 | A physical thing: a polaroid, a single-post photo. The portfolio's card rung. |
+| `surface` | 28 | The biggest surfaces: sheets, the photo viewer. The portfolio's top rung. |
+| `viewfinder` | 48 | The camera's bottom corners only. It is the environment, and it leaves the ladder. |
 | `capsule` | ∞ | Text buttons (Accept · Invite), avatars, the shutter, the reaction bar. |
 
 ---
@@ -563,7 +565,11 @@ Logged so the next person knows they were choices, not accidents.
 |---|---|---|
 | 4 serif families | Cormorant Garamond | One voice. Lining numerals cover the countdown. |
 | SF Pro Semibold on numerals | Medium | Semibold made "12" the loudest thing on the screen. |
-| Orb labels at 10pt serif | 12pt | 10pt Cormorant on black loses its serifs on a 2× screen. |
+| Orb labels at 10pt serif | 12pt SF Pro Medium | Serif is for ≥20pt only (Jayden, 2026-09-02). |
+| Names in Cormorant SemiBold 16 | SF Pro Medium 16 | Same rule. Serif is a voice, not a body face. |
+| Photo tiles at radius 3 | 12 | Read as prints, not razor edges. Portfolio feel. |
+| Controls at radius 10 | 14 | Portfolio's control rung. |
+| Viewfinder corners 40 | 48 | "A bit more curve for the camera." |
 | Margins 19 / 24 / 25 / 29 / 30 / 35 | 20 | One margin. Grids bleed to 0. |
 | 13 near-black surfaces | 4 | Ground · Sunken · Surface · Raised. |
 | Avatars 33 / 46.9 | 32 / 48 | On the grid. |

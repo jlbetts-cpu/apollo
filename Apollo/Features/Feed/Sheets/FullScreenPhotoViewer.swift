@@ -315,7 +315,7 @@ private struct PolaroidCardView: View {
         }
         .frame(width: cardWidth)
         .background(Color.apolloBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 3, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
         .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 4)
     }
 
@@ -348,7 +348,7 @@ private struct PolaroidCardView: View {
         }
         .frame(width: photoSize, height: photoSize)
         .clipped()
-        .clipShape(RoundedRectangle(cornerRadius: 3, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous))
     }
 
     // MARK: Label area

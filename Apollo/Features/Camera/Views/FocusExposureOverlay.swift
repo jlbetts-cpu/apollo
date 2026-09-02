@@ -27,7 +27,7 @@ struct FocusExposureOverlay: View {
         if let point {
             ZStack(alignment: .topLeading) {
                 // Focus square
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: ApolloRadius.photo, style: .continuous)
                     .stroke(Color.yellow.opacity(0.85), lineWidth: 1.5)
                     .frame(width: squareSize, height: squareSize)
 
